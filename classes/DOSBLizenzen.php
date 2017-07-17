@@ -54,11 +54,7 @@ class DOSBLizenzen extends \Backend
 			$host = $this->host.'request';
 			
 			// Letztes Verlängerungsdatum ermitteln
-			$verlaengerung = $result->verlaengerung5;
-			if(!$verlaengerung) $verlaengerung = $result->verlaengerung4;
-			if(!$verlaengerung) $verlaengerung = $result->verlaengerung3;
-			if(!$verlaengerung) $verlaengerung = $result->verlaengerung2;
-			if(!$verlaengerung) $verlaengerung = $result->verlaengerung1;
+			$verlaengerung = \Samson\Trainerlizenzen\Helper::getVerlaengerung($result->verlaengerungen);
 			if(!$verlaengerung) $verlaengerung = $result->erwerb;
 			
 			// Datenpaket aufbereiten

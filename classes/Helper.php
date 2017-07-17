@@ -2,27 +2,18 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2012 Leo Feyer
+ * Copyright (C) 2005-2017 Leo Feyer
  *
  * @link http://www.contao.org
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  * 
- * Modul Banner - Check Helper 
+ * Modul Trainerlizenzen - Helper 
  * 
  * PHP version 5
- * @copyright  Glen Langer 2007..2015
- * @author     Glen Langer
- * @package    Banner
+ * @copyright  Frank Hoppe 2014 - 2017
+ * @author     Frank Hoppe
+ * @package    Trainerlizenzen
  * @license    LGPL
- */
-
-
-/**
- * Class BannerCheckHelper
- *
- * @copyright  Glen Langer 2015
- * @author     Glen Langer
- * @package    Banner
  */
 
 namespace Samson\Trainerlizenzen;
@@ -64,6 +55,31 @@ class Helper extends \Frontend
 		}
 	
 		return self::$instance;
+	}
+
+	/**
+	 * Liefert das Datum der letzten Verlängerung
+	 * @param string           Serialisiertes Array mit den Timestamps in aufsteigender Reihenfolge
+	 * @return int             Timestamp der letzten Verlängerung oder FALSE
+	 */
+	public function getVerlaengerung($string)
+	{
+		$return = false;
+		if($string)
+		{
+			$temp = unserialize($string);
+			if($temp)
+			{
+				foreach($temp as $item)
+				{
+					$return = $item['datum'];
+				}
+				return $return;
+			}
+			return $return;
+		}
+		return $return;
+		
 	}
 
 	public function getVerbaende() 

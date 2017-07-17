@@ -66,17 +66,17 @@ class trainerlizenzExport extends \Backend
 			{
 				switch($c)
 				{
-					case 22: // Veröffentlicht
+					case 18: // Veröffentlicht
 						$breite = 4000;
 						break;
 					case 8: // PLZ
-					case 23: // Titel
-					case 26: // ID
+					case 19: // Titel
+					case 22: // ID
 						$breite = 1500;
 						break;
 					case 4: // Lizenz
-					case 16: // Codex
-					case 18: // Erste Hilfe
+					case 12: // Codex
+					case 14: // Erste Hilfe
 						$breite = 2000;
 						break;
 					case 5: // Gültig bis
@@ -84,27 +84,23 @@ class trainerlizenzExport extends \Backend
 					case 10: // Erwerb
 						$breite = 3500;
 						break;
-					case 11: // Verlängerung 1
-					case 12: // Verlängerung 2
-					case 13: // Verlängerung 3
-					case 14: // Verlängerung 4
-					case 15: // Verlängerung 5
-					case 17: // Codex Datum
-					case 19: // Erste Hilfe Datum
+					case 11: // Letzte Verlängerung
+					case 13: // Codex Datum
+					case 15: // Erste Hilfe Datum
 					case 1: // Vorname
 					case 2: // Name
 					case 3: // Lizenznummer
-					case 21: // Bemerkung
-					case 24: // Emailadresse
-					case 20: // Letzte Änderung
+					case 17: // Bemerkung
+					case 20: // Emailadresse
+					case 16: // Letzte Änderung
 						$breite = 4000;
 						break;
 					case 9: // Ort
-					case 27: // Zeitstempel
+					case 23: // Zeitstempel
 						$breite = 4500;
 						break;
 					case 7: // Straße
-					case 25: // Verband
+					case 21: // Verband
 						$breite = 5000;
 						break;
 					default:
@@ -187,11 +183,7 @@ class trainerlizenzExport extends \Backend
 		$arrExport[0]['plz'] = 'PLZ';
 		$arrExport[0]['ort'] = 'Ort';
 		$arrExport[0]['erwerb'] = 'Lizenzerwerb';
-		$arrExport[0]['verlaengerung1'] = utf8_decode('Verlängerung (1)');
-		$arrExport[0]['verlaengerung2'] = utf8_decode('Verlängerung (2)');
-		$arrExport[0]['verlaengerung3'] = utf8_decode('Verlängerung (3)');
-		$arrExport[0]['verlaengerung4'] = utf8_decode('Verlängerung (4)');
-		$arrExport[0]['verlaengerung5'] = utf8_decode('Verlängerung (5)');
+		$arrExport[0]['verlaengerungen'] = utf8_decode('Letzte Verlängerung');
 		$arrExport[0]['codex'] = 'Codex';
 		$arrExport[0]['codex_date'] = 'Codex-Datum';
 		$arrExport[0]['help'] = 'Erste Hilfe';
@@ -219,11 +211,7 @@ class trainerlizenzExport extends \Backend
 				$arrExport[$x]['plz'] = $records->plz;
 				$arrExport[$x]['ort'] = utf8_decode($records->ort);
 				$arrExport[$x]['erwerb'] = $this->getDate($records->erwerb);
-				$arrExport[$x]['verlaengerung1'] = $this->getDate($records->verlaengerung1);
-				$arrExport[$x]['verlaengerung2'] = $this->getDate($records->verlaengerung2);
-				$arrExport[$x]['verlaengerung3'] = $this->getDate($records->verlaengerung3);
-				$arrExport[$x]['verlaengerung4'] = $this->getDate($records->verlaengerung4);
-				$arrExport[$x]['verlaengerung5'] = $this->getDate($records->verlaengerung5);
+				$arrExport[$x]['verlaengerungen'] = $this->getDate(\Samson\Trainerlizenzen\Helper::getVerlaengerung($records->verlaengerungen));
 				$arrExport[$x]['codex'] = $records->codex;
 				$arrExport[$x]['codex_date'] = $this->getDate($records->codex_date);
 				$arrExport[$x]['help'] = $records->help;

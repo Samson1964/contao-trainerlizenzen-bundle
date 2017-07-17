@@ -1,23 +1,20 @@
 <?php
 
 /**
-* Contao Open Source CMS
-*
-* Copyright (c) 2005-2014 Leo Feyer
-*
-* @package   Efg
-* @author    Thomas Kuhn <mail@th-kuhn.de>
+ * Contao Open Source CMS
+ *
+ * Copyright (c) 2005-2017 Leo Feyer
+ *
+ * @package   Trainerlizenzen
+ * @author    Frank Hoppe <webmaster@schachbund.de>
  * @license   http://www.gnu.org/licenses/lgpl-3.0.html LGPL
- * @copyright Thomas Kuhn 2007-2014
+ * @copyright Frank Hoppe 2014 - 2017
  */
-
-// This file is created when saving a form in form generator
-// last created on 2014-10-08 22:39:01 by saving form "DSB-Trainerlizenz"
 
 $GLOBALS['TL_CSS'][] = 'system/modules/trainerlizenzen/assets/css/default.css';
 
 /**
- * Table tl_trainerlizenzen defined by form "DSB-Trainerlizenz"
+ * Table tl_trainerlizenzen
  */
 $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 (
@@ -42,10 +39,6 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 				'name'           => 'index',
 				'erwerb'         => 'index',
 				'gueltigkeit'    => 'index',
-				'verlaengerung1' => 'index',
-				'verlaengerung2' => 'index',
-				'verlaengerung3' => 'index',
-				'verlaengerung4' => 'index'
 			)
 		)
 	),
@@ -152,7 +145,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 	(
 		'__selector__'                => array('codex', 'help'),
 		//'default'                     => '{verification_legend},verification;{dosb_legend},license_number_dosb,button_license,view_pdf,button_pdf;{marker_legend},marker;{name_legend},vorname,name,titel,geburtstag,geschlecht;{adresse_legend},strasse,plz,ort,email,telefon;{verband_legend},verband;{lizenz_legend},lizenznummer,lizenz;{lizenzver_legend},erwerb,verlaengerung1,verlaengerung2,verlaengerung3,verlaengerung4,verlaengerung5;{lizenzbis_legend},gueltigkeit;{codex_legend},codex,help;{datum_legend},letzteAenderung;{hinweise_legend:hide},bemerkung;{published_legend},published'
-		'default'                     => 'verification,{dosb_legend},license_number_dosb,button_license,view_pdf,button_pdf;{marker_legend},marker;{name_legend},vorname,name,titel,geburtstag,geschlecht;{adresse_legend},strasse,plz,ort,email,telefon;{verband_legend},verband;{lizenz_legend},lizenznummer,lizenz;{lizenzver_legend},erwerb,verlaengerung1,verlaengerung2,verlaengerung3,verlaengerung4,verlaengerung5;{lizenzbis_legend},gueltigkeit;{codex_legend},codex,help;{datum_legend},letzteAenderung,setHeute;{hinweise_legend:hide},bemerkung;{published_legend},published'
+		'default'                     => 'verification,{dosb_legend},license_number_dosb,button_license,view_pdf,button_pdf;{marker_legend},marker;{name_legend},vorname,name,titel,geburtstag,geschlecht;{adresse_legend},strasse,plz,ort,email,telefon;{verband_legend},verband;{lizenz_legend},lizenznummer,lizenz;{lizenzver_legend},erwerb,verlaengerungen;{lizenzbis_legend},gueltigkeit;{codex_legend},codex,help;{datum_legend},letzteAenderung,setHeute;{hinweise_legend:hide},bemerkung;{published_legend},published'
 	),
 
 	// Subpalettes
@@ -167,6 +160,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 	(
 		'id' => array
 		(
+			'search'                  => true,
 			'sql'                     => "int(10) unsigned NOT NULL auto_increment"
 		),
 		'tstamp' => array
@@ -530,10 +524,10 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung1'],
 			'inputType'               => 'text',
 			'exclude'                 => false,
-			'search'                  => true,
-			'sorting'                 => true,
+			'search'                  => false,
+			'sorting'                 => false,
 			'flag'                    => 8,
-			'filter'                  => true,
+			'filter'                  => false,
 			'eval'                    => array
 			(
 				'rgxp'                => 'date',
@@ -549,10 +543,10 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung2'],
 			'inputType'               => 'text',
 			'exclude'                 => false,
-			'search'                  => true,
-			'sorting'                 => true,
+			'search'                  => false,
+			'sorting'                 => false,
 			'flag'                    => 8,
-			'filter'                  => true,
+			'filter'                  => false,
 			'eval'                    => array
 			(
 				'rgxp'                => 'date',
@@ -568,10 +562,10 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung3'],
 			'inputType'               => 'text',
 			'exclude'                 => false,
-			'search'                  => true,
-			'sorting'                 => true,
+			'search'                  => false,
+			'sorting'                 => false,
 			'flag'                    => 8,
-			'filter'                  => true,
+			'filter'                  => false,
 			'eval'                    => array
 			(
 				'rgxp'                => 'date',
@@ -587,10 +581,10 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung4'],
 			'inputType'               => 'text',
 			'exclude'                 => false,
-			'search'                  => true,
-			'sorting'                 => true,
+			'search'                  => false,
+			'sorting'                 => false,
 			'flag'                    => 8,
-			'filter'                  => true,
+			'filter'                  => false,
 			'eval'                    => array
 			(
 				'rgxp'                => 'date',
@@ -606,10 +600,10 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung5'],
 			'inputType'               => 'text',
 			'exclude'                 => false,
-			'search'                  => true,
-			'sorting'                 => true,
+			'search'                  => false,
+			'sorting'                 => false,
 			'flag'                    => 8,
-			'filter'                  => true,
+			'filter'                  => false,
 			'eval'                    => array
 			(
 				'rgxp'                => 'date',
@@ -618,6 +612,91 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 				'doNotCopy'           => true
 			),
 			'sql'                     => "varchar(11) NOT NULL default ''"
+		),
+		// Datum der 6. Lizenzverlängerung
+		'verlaengerung6' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung6'],
+			'inputType'               => 'text',
+			'exclude'                 => false,
+			'search'                  => false,
+			'sorting'                 => false,
+			'flag'                    => 8,
+			'filter'                  => false,
+			'eval'                    => array
+			(
+				'rgxp'                => 'date',
+				'datepicker'          => true,
+				'tl_class'            => 'w50 wizard',
+				'doNotCopy'           => true
+			),
+			'sql'                     => "varchar(11) NOT NULL default ''"
+		),
+		// Datum der 7. Lizenzverlängerung
+		'verlaengerung7' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung7'],
+			'inputType'               => 'text',
+			'exclude'                 => false,
+			'search'                  => false,
+			'sorting'                 => false,
+			'flag'                    => 8,
+			'filter'                  => false,
+			'eval'                    => array
+			(
+				'rgxp'                => 'date',
+				'datepicker'          => true,
+				'tl_class'            => 'w50 wizard',
+				'doNotCopy'           => true
+			),
+			'sql'                     => "varchar(11) NOT NULL default ''"
+		),
+		// Datum der 8. Lizenzverlängerung
+		'verlaengerung8' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung8'],
+			'inputType'               => 'text',
+			'exclude'                 => false,
+			'search'                  => false,
+			'sorting'                 => false,
+			'flag'                    => 8,
+			'filter'                  => false,
+			'eval'                    => array
+			(
+				'rgxp'                => 'date',
+				'datepicker'          => true,
+				'tl_class'            => 'w50 wizard',
+				'doNotCopy'           => true
+			),
+			'sql'                     => "varchar(11) NOT NULL default ''"
+		),
+		'verlaengerungen' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerungen'],
+			'exclude'                 => true,
+			'search'                  => false,
+			'inputType'               => 'multiColumnWizard',
+			'eval'                    => array
+			(
+				'tl_class'            => 'clr',
+				'columnFields'        => array
+				(
+					'datum' => array
+					(
+						'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung_datum'],
+						'exclude'                 => true,
+						'inputType'               => 'text',
+						'eval'                    => array
+						(
+							'tl_class'            => 'w50 wizard',
+							'rgxp'                => 'date',
+							'datepicker'          => true,
+							'maxlength'           => 10
+						),
+					),
+				)
+			),
+			'sql'                     => "blob NULL"
 		),
 		// Datum der Lizenzgültigkeit
 		'gueltigkeit' => array
@@ -989,12 +1068,7 @@ class tl_trainerlizenzen extends \Backend
 		// GÜLTIGKEIT DER LIZENZ
 		// ----------------------------------------------------------------
 		// Letztes Verlängerungsdatum ermitteln
-		$verlaengerung = $dc->activeRecord->verlaengerung5;
-		if(!$verlaengerung) $verlaengerung = $dc->activeRecord->verlaengerung4;
-		if(!$verlaengerung) $verlaengerung = $dc->activeRecord->verlaengerung3;
-		if(!$verlaengerung) $verlaengerung = $dc->activeRecord->verlaengerung2;
-		if(!$verlaengerung) $verlaengerung = $dc->activeRecord->verlaengerung1;
-		if(!$verlaengerung) $verlaengerung = $dc->activeRecord->erwerb;
+		$verlaengerung = \Samson\Trainerlizenzen\Helper::getVerlaengerung($dc->activeRecord->verlaengerungen);
 
 		// Zulässiges Gültigkeitsdatum feststellen
 		switch(substr($dc->activeRecord->lizenz,0,1))
@@ -1012,8 +1086,6 @@ class tl_trainerlizenzen extends \Backend
 				$gueltigkeit = 0;
 		}
 
-		$quartal = floor(date("m", $gueltigkeit) / 3);
-		
 		// Gültigkeitsdatum überprüfen
 		if($dc->activeRecord->license_number_dosb)
 		{

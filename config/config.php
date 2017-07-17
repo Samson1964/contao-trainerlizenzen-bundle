@@ -50,10 +50,7 @@ $GLOBALS['TL_HOOKS']['simpleAjax'][] = array('ajaxRequest', 'compile');
 /**
  * Frontend-Module
  */
-$GLOBALS['FE_MOD']['dsb'] = array
-(
-	'trainerlizenzen'   => 'Samson\Trainerlizenzen\Trainerliste',
-);
+$GLOBALS['FE_MOD']['dsb']['trainerlizenzen'] = 'Samson\Trainerlizenzen\Trainerliste';
 
 // Konfiguration für ProSearch
 $GLOBALS['PS_SEARCHABLE_MODULES']['trainerlizenzen'] = array(

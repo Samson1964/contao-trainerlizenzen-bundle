@@ -115,6 +115,14 @@ $GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung4'][0] = 'Datum der 4. V
 $GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung4'][1] = 'Datum der 4. Verlängerung im Format TT.MM.JJJJ';
 $GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung5'][0] = 'Datum der 5. Verlängerung';
 $GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung5'][1] = 'Datum der 5. Verlängerung im Format TT.MM.JJJJ';
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung6'][0] = 'Datum der 6. Verlängerung';
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung6'][1] = 'Datum der 6. Verlängerung im Format TT.MM.JJJJ';
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung7'][0] = 'Datum der 7. Verlängerung';
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung7'][1] = 'Datum der 7. Verlängerung im Format TT.MM.JJJJ';
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung8'][0] = 'Datum der 8. Verlängerung';
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung8'][1] = 'Datum der 8. Verlängerung im Format TT.MM.JJJJ';
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerungen'] = array('Verlängerungen','Das Datum der einzelnen Verlängerungen bitte in aufsteigender Reihenfolge im Format TT.MM.JJJJ angeben. Über die Icons rechts können Sie ein Datum auswählen und Datumsfelder hinzufügen, verschieben und löschen.');
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung_datum'] = array('','');
 
 $GLOBALS['TL_LANG']['tl_trainerlizenzen']['lizenzbis_legend'] = 'Gültigkeit';
 $GLOBALS['TL_LANG']['tl_trainerlizenzen']['gueltigkeit'][0] = 'Gültig bis';
