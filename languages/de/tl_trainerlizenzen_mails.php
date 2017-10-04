@@ -38,8 +38,8 @@ $GLOBALS['TL_LANG']['tl_trainerlizenzen_mails']['preview'][0] = 'Vorschau';
 $GLOBALS['TL_LANG']['tl_trainerlizenzen_mails']['preview'][1] = 'Vorschau mit diesem Template';
 
 $GLOBALS['TL_LANG']['tl_trainerlizenzen_mails']['mail_legend'] = 'E-Mail-Optionen';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen_mails']['insertLizenz'][0] = 'Lizenzurkunde einfügen';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen_mails']['insertLizenz'][1] = 'PDF der Lizenzurkunde als Anhang mitschicken';
+$GLOBALS['TL_LANG']['tl_trainerlizenzen_mails']['insertLizenz'] = array('Lizenzurkunde DIN A4 einfügen', 'PDF der Lizenzurkunde im Format DIN A4 als Anhang mitschicken');
+$GLOBALS['TL_LANG']['tl_trainerlizenzen_mails']['insertLizenzCard'] = array('Lizenzurkunde Karte einfügen', 'PDF der Lizenzurkunde im Format Karte als Anhang mitschicken');
 $GLOBALS['TL_LANG']['tl_trainerlizenzen_mails']['copyVerband'][0] = 'E-Mail-Kopie an Landesverband';
 $GLOBALS['TL_LANG']['tl_trainerlizenzen_mails']['copyVerband'][1] = 'E-Mail-Kopie an Landesverband';
 $GLOBALS['TL_LANG']['tl_trainerlizenzen_mails']['copyDSB'][0] = 'E-Mail-Kopie an DSB';

@@ -145,7 +145,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 	(
 		'__selector__'                => array('codex', 'help'),
 		//'default'                     => '{verification_legend},verification;{dosb_legend},license_number_dosb,button_license,view_pdf,button_pdf;{marker_legend},marker;{name_legend},vorname,name,titel,geburtstag,geschlecht;{adresse_legend},strasse,plz,ort,email,telefon;{verband_legend},verband;{lizenz_legend},lizenznummer,lizenz;{lizenzver_legend},erwerb,verlaengerung1,verlaengerung2,verlaengerung3,verlaengerung4,verlaengerung5;{lizenzbis_legend},gueltigkeit;{codex_legend},codex,help;{datum_legend},letzteAenderung;{hinweise_legend:hide},bemerkung;{published_legend},published'
-		'default'                     => 'verification,{dosb_legend},license_number_dosb,button_license,view_pdf,button_pdf;{marker_legend},marker;{name_legend},vorname,name,titel,geburtstag,geschlecht;{adresse_legend},strasse,plz,ort,email,telefon;{verband_legend},verband;{lizenz_legend},lizenznummer,lizenz;{lizenzver_legend},erwerb,verlaengerungen;{lizenzbis_legend},gueltigkeit;{codex_legend},codex,help;{datum_legend},letzteAenderung,setHeute;{hinweise_legend:hide},bemerkung;{published_legend},published'
+		'default'                     => 'verification,{dosb_legend},license_number_dosb,button_license,view_pdf,button_pdf,view_pdfcard,button_pdfcard;{marker_legend},marker;{name_legend},vorname,name,titel,geburtstag,geschlecht;{adresse_legend},strasse,plz,ort,email,telefon;{verband_legend},verband;{lizenz_legend},lizenznummer,lizenz;{lizenzver_legend},erwerb,verlaengerungen;{lizenzbis_legend},gueltigkeit;{codex_legend},codex,help;{datum_legend},letzteAenderung,setHeute;{hinweise_legend:hide},bemerkung;{published_legend},published'
 	),
 
 	// Subpalettes
@@ -220,14 +220,14 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 			'exclude'                 => true,
 			'input_field_callback'    => array('tl_trainerlizenzen', 'getLizenzbutton')
 		), 
-		// PDF-Link
+		// PDF-Link Format DIN A4
 		'view_pdf' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['view_pdf'],
 			'input_field_callback'    => array('tl_trainerlizenzen', 'getLizenzPDFView'),
 			'exclude'                 => false,
 		),
-		// Button zur PDF-Anforderung
+		// Button zur PDF-Anforderung DIN A4
 		'button_pdf' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['button_pdf'],
@@ -251,6 +251,39 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		'dosb_pdf_antwort' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['dosb_pdf_antwort'],
+			'sql'                     => "varchar(255) NOT NULL default ''",
+		),
+		// PDF-Link Format Card
+		'view_pdfcard' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['view_pdfcard'],
+			'input_field_callback'    => array('tl_trainerlizenzen', 'getLizenzPDFCardView'),
+			'exclude'                 => false,
+		),
+		// Button zur PDF-Anforderung Format Card
+		'button_pdfcard' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['button_pdfcard'],
+			'exclude'                 => true,
+			'input_field_callback'    => array('tl_trainerlizenzen', 'getLizenzPDFCard')
+		), 
+		// Unixzeit des letzten PDF-Abrufs beim DOSB
+		'dosb_pdfcard_tstamp' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['dosb_pdfcard_tstamp'],
+			'flag'                    => 8,
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
+		),
+		// HTTP-Code des letzten PDF-Abrufs beim DOSB
+		'dosb_pdfcard_code' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['dosb_pdfcard_code'],
+			'sql'                     => "int(3) unsigned NOT NULL default '0'"
+		),
+		// Antwort des letzten PDF-Abrufs beim DOSB
+		'dosb_pdfcard_antwort' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['dosb_pdfcard_antwort'],
 			'sql'                     => "varchar(255) NOT NULL default ''",
 		),
 		'marker' => array
@@ -953,7 +986,7 @@ class tl_trainerlizenzen extends \Backend
 		}
 		
 		$string = '
-<div class="w50">
+<div class="w50" style="height:40px;">
 	<h3><label>&nbsp;</label></h3>
 	'.$status.'
 </div>'; 
@@ -973,9 +1006,9 @@ class tl_trainerlizenzen extends \Backend
 		else $antwort = '';
 		
 		$string = '
-<div class="w50">
+<div class="w50" style="height:40px;">
 	<h3><label>&nbsp;</label></h3>
-	<a href="'.$link.'" class="dosb_button">Lizenz erstellen/verlängern</a>
+	<a href="'.$link.'" class="dosb_button">'.$GLOBALS['TL_LANG']['tl_trainerlizenzen']['button_license'][0].'</a>
 	<p class="tl_help tl_tip" title="">'.$antwort.'</p>
 </div>'; 
 		
@@ -987,20 +1020,21 @@ class tl_trainerlizenzen extends \Backend
 		// Lizenzstatus
 		if($dc->activeRecord->license_number_dosb && file_exists(TL_ROOT.'/files/trainerlizenzen/'.$dc->activeRecord->license_number_dosb.'.pdf'))
 		{
-			$status = '<a href="files/trainerlizenzen/'.$dc->activeRecord->license_number_dosb.'.pdf" target="_blank" title="Zeigt die auf dem DSB-Server gespeicherte Lizenzurkunde an." class="dosb_button_mini">PDF anzeigen</a>';
+			$status = '<a href="files/trainerlizenzen/'.$dc->activeRecord->license_number_dosb.'.pdf" target="_blank" title="Zeigt die auf dem DSB-Server gespeicherte Lizenzurkunde an." class="dosb_button_mini">PDF DIN A4 anzeigen</a>';
 			//$email = '&nbsp;<a href="" title="Verschickt die Lizenzurkunde mit der Standard-Mailvorlage an den Trainer, den Landesverband und den DSB" class="dosb_button_mini">PDF verschicken</a>';
 			$email = '';
 		}
 		else
 		{
-			$status = 'Kein PDF vorhanden';
+			$status = 'Kein PDF DIN A4 vorhanden';
 			$email = '';
 		}
 		
 		if($dc->activeRecord->license_number_dosb)
 		{
 		$string = '
-<div class="w50">
+<div class="w50" style="height:40px;">
+	<h3><label>&nbsp;</label></h3>
 	'.$status.$email.'
 </div> '; 
 			return $string;
@@ -1023,8 +1057,9 @@ class tl_trainerlizenzen extends \Backend
 		if($dc->activeRecord->license_number_dosb)
 		{
 		$string = '
-<div class="w50">
-	<a href="'.$link.'" class="dosb_button">PDF anfordern</a>
+<div class="w50" style="height:40px;">
+	<h3><label>&nbsp;</label></h3>
+	<a href="'.$link.'" class="dosb_button">'.$GLOBALS['TL_LANG']['tl_trainerlizenzen']['button_pdf'][0].'</a>
 	<p class="tl_help tl_tip" title="">'.$antwort.'</p>
 </div>'; 
 			return $string;
@@ -1032,6 +1067,60 @@ class tl_trainerlizenzen extends \Backend
 		else return '';
 			
 	}
+
+	public function getLizenzPDFCardView(DataContainer $dc)
+	{
+		// Lizenzstatus
+		if($dc->activeRecord->license_number_dosb && file_exists(TL_ROOT.'/files/trainerlizenzen/'.$dc->activeRecord->license_number_dosb.'-card.pdf'))
+		{
+			$status = '<a href="files/trainerlizenzen/'.$dc->activeRecord->license_number_dosb.'-card.pdf" target="_blank" title="Zeigt die auf dem DSB-Server gespeicherte Lizenzurkunde im Format Card an." class="dosb_button_mini">PDF Karte anzeigen</a>';
+			//$email = '&nbsp;<a href="" title="Verschickt die Lizenzurkunde mit der Standard-Mailvorlage an den Trainer, den Landesverband und den DSB" class="dosb_button_mini">PDF verschicken</a>';
+			$email = '';
+		}
+		else
+		{
+			$status = 'Kein PDF Card vorhanden';
+			$email = '';
+		}
+		
+		if($dc->activeRecord->license_number_dosb)
+		{
+		$string = '
+<div class="w50" style="height:40px;">
+	<h3><label>&nbsp;</label></h3>
+	'.$status.$email.'
+</div> '; 
+			return $string;
+		}
+		else return '';
+	}
+
+	public function getLizenzPDFCard(DataContainer $dc)
+	{
+
+		$link = 'contao/main.php?do=trainerlizenzen&amp;key=getLizenzPDFCard&amp;id=' . $dc->activeRecord->id . '&amp;rt=' . REQUEST_TOKEN;
+
+		// Letzter Lizenzabruf und Rückgabecode
+		if($dc->activeRecord->dosb_pdf_tstamp)
+		{
+			$antwort = 'Letzter Abruf: '.date('d.m.Y H:i:s', $dc->activeRecord->dosb_pdfcard_tstamp).' ('.$dc->activeRecord->dosb_pdfcard_code.' '.$dc->activeRecord->dosb_pdfcard_antwort.')';
+		}
+		else $antwort = '';
+
+		if($dc->activeRecord->license_number_dosb)
+		{
+		$string = '
+<div class="w50" style="height:40px;">
+	<h3><label>&nbsp;</label></h3>
+	<a href="'.$link.'" class="dosb_button">'.$GLOBALS['TL_LANG']['tl_trainerlizenzen']['button_pdfcard'][0].'</a>
+	<p class="tl_help tl_tip" title="">'.$antwort.'</p>
+</div>'; 
+			return $string;
+		}
+		else return '';
+			
+	}
+
 
 	/**
 	 * Setzt das aktuelle Datum beim Änderungsdatum
@@ -1068,12 +1157,13 @@ class tl_trainerlizenzen extends \Backend
 		// GÜLTIGKEIT DER LIZENZ
 		// ----------------------------------------------------------------
 		// Letztes Verlängerungsdatum ermitteln
-		$verlaengerung = \Samson\Trainerlizenzen\Helper::getVerlaengerung($dc->activeRecord->verlaengerungen);
+		$verlaengerung = \Samson\Trainerlizenzen\Helper::getVerlaengerung($dc->activeRecord->erwerb, $dc->activeRecord->verlaengerungen);
 
 		// Zulässiges Gültigkeitsdatum feststellen
 		switch(substr($dc->activeRecord->lizenz,0,1))
 		{
 			case 'A': // 2 Jahre ab Ausstellungsdatum - 1 Tag
+				//echo "|$verlaengerung|";
 				$gueltigkeit = strtotime('+2 years', $verlaengerung) - 86400;
 				$gueltigkeit = $this->getQuartalsende($gueltigkeit);
 				break;

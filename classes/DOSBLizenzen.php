@@ -186,7 +186,7 @@ class DOSBLizenzen extends \Backend
 	}
 
 	/**
-	 * Abrufen einer Lizenz als PDF
+	 * Abrufen einer Lizenz als PDF im Format DIN A4
 	 */
 
 	public function getLizenzPDF()
@@ -258,6 +258,92 @@ class DOSBLizenzen extends \Backend
 		}
 
 		$log = "PDF-Abruf:\n";
+		$log .= "Host: $host\n";
+		$log .= "Response Body: $httpCode $httpText\n";
+		$log .= "CURL Errors: $errors";
+		log_message($log, 'trainerlizenzen.log');
+		
+		$backlink = 'main.php?do=trainerlizenzen&act=edit&id='.$id.'&rt='.REQUEST_TOKEN;
+		header('Location:'.$backlink);
+
+	}
+
+	/**
+	 * Abrufen einer Lizenz als PDF im Format Card
+	 */
+
+	public function getLizenzPDFCard()
+	{
+		// Datensatz-ID des Trainers
+		$id = \Input::get('id');
+		
+		// Datensatz einlesen
+		$result = \Database::getInstance()->prepare("SELECT * FROM tl_trainerlizenzen WHERE id = ?")
+										  ->execute($id);
+
+		// Auswerten
+		if($result->numRows)
+		{
+			// Anfügen der Methode für das Abrufen einer Lizenz als PDF-Karte
+			$host = $this->host.'download/'.urlencode($result->license_number_dosb);
+
+			$options = array('format' => 'card'); //format = card, dina4, signet
+
+			$process = curl_init($host);
+			
+			//hier ist auch noch application/xml möglich
+			curl_setopt($process, CURLOPT_HTTPHEADER, array(
+			  'Accept: application/json'
+			));
+			curl_setopt($process, CURLOPT_HEADER, 1);
+			curl_setopt($process, CURLOPT_USERPWD, $this->username . ":" . $this->password);
+			curl_setopt($process, CURLOPT_TIMEOUT, 60);
+			curl_setopt($process, CURLOPT_POST, 1);
+			curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
+			curl_setopt($process, CURLOPT_POSTFIELDS, $options);
+			//nur für test zwecke
+			curl_setopt($process, CURLOPT_SSL_VERIFYPEER, FALSE);
+			
+			//Request ausfuehren
+			$response = curl_exec($process);
+			
+			$errors = NULL;
+			if(curl_errno($process)) 
+			{
+				$errors =  'Curl error: ' . curl_error($process);
+			}
+			
+			$header_size = curl_getinfo($process, CURLINFO_HEADER_SIZE);
+			$httpCode = curl_getinfo($process, CURLINFO_HTTP_CODE); // HTTP-Code der Abfrage
+			$header = substr($response, 0, $header_size);
+			$body = substr($response, $header_size);//json_decode(substr($response, $header_size));
+
+			if($httpCode == 200 && !$errors)
+			{			
+				// Schreiben der Daten in eine PDF
+				@mkdir(TRAINERLIZENZEN_PFAD, '0777');
+				$filename = TRAINERLIZENZEN_PFAD.'/'.$result->license_number_dosb.'-card.pdf';
+				file_put_contents($filename, $response);
+				$httpText = 'OK';
+			}
+			else
+			{
+				$httpText = substr($body, 2, strlen($body) - 4);
+			}
+			
+			// Abrufinformationen ergänzen
+			$set = array(
+				'dosb_pdfcard_tstamp'         => time(),
+				'dosb_pdfcard_code'           => $httpCode,
+				'dosb_pdfcard_antwort'        => $httpText,
+			);
+			$result = \Database::getInstance()->prepare("UPDATE tl_trainerlizenzen %s WHERE id=?")
+			                                  ->set($set)
+			                                  ->execute($id); 
+
+		}
+
+		$log = "PDF-Cardabruf:\n";
 		$log .= "Host: $host\n";
 		$log .= "Response Body: $httpCode $httpText\n";
 		$log .= "CURL Errors: $errors";

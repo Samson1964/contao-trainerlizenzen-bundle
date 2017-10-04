@@ -97,7 +97,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen_mails'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'default'                     => '{text_legend},subject,content;{template_legend},template,preview;{mail_legend},insertLizenz,copyVerband,copyDSB,send'
+		'default'                     => '{text_legend},subject,content;{template_legend},template,preview;{mail_legend},insertLizenz,insertLizenzCard,copyVerband,copyDSB,send'
 	),
 
 	// Fields
@@ -168,6 +168,18 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen_mails'] = array
 		'insertLizenz' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen_mails']['insertLizenz'],
+			'inputType'               => 'checkbox',
+			'default'                 => true,
+			'eval'                    => array
+			(
+				'tl_class'            => 'w50',
+				'isBoolean'           => false
+			),
+			'sql'                     => "char(1) NOT NULL default ''"
+		),
+		'insertLizenzCard' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen_mails']['insertLizenzCard'],
 			'inputType'               => 'checkbox',
 			'default'                 => true,
 			'eval'                    => array

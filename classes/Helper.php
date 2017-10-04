@@ -59,26 +59,25 @@ class Helper extends \Frontend
 
 	/**
 	 * Liefert das Datum der letzten Verlängerung
-	 * @param string           Serialisiertes Array mit den Timestamps in aufsteigender Reihenfolge
+	 * @param erwerb           Timestamp des Lizenzerwerbs
+	 * @param verlaengerungen  Serialisiertes Array mit den Timestamps in aufsteigender Reihenfolge
 	 * @return int             Timestamp der letzten Verlängerung oder FALSE
 	 */
-	public function getVerlaengerung($string)
+	public function getVerlaengerung($erwerb, $verlaengerungen)
 	{
 		$return = false;
-		if($string)
+		if($verlaengerungen)
 		{
-			$temp = unserialize($string);
+			$temp = unserialize($verlaengerungen);
 			if($temp)
 			{
 				foreach($temp as $item)
 				{
 					$return = $item['datum'];
 				}
-				return $return;
 			}
-			return $return;
 		}
-		return $return;
+		return $return ? $return : $erwerb;
 		
 	}
 

@@ -40,6 +40,7 @@ $GLOBALS['BE_MOD']['dsb']['trainerlizenzen'] = array
 	'import'            => array('Samson\Trainerlizenzen\trainerlizenzImport', 'importTrainer'), 
 	'getLizenz'         => array('Samson\Trainerlizenzen\DOSBLizenzen', 'getLizenz'),
 	'getLizenzPDF'      => array('Samson\Trainerlizenzen\DOSBLizenzen', 'getLizenzPDF'),
+	'getLizenzPDFCard'  => array('Samson\Trainerlizenzen\DOSBLizenzen', 'getLizenzPDFCard'),
 	'exportDOSB'        => array('Samson\Trainerlizenzen\DOSBLizenzen', 'exportDOSB'),
 	'send'              => array('Samson\Trainerlizenzen\Mailer', 'send'), 
 );

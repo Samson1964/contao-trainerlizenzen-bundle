@@ -35,14 +35,25 @@ class Mailer extends \Backend
 		$preview_css = $this->getPreview($dc->id, $mail->pid, $mail->template, true, $css); // HTML/CSS-Version erstellen
 		$preview_body = $this->getPreview($dc->id, $mail->pid, $mail->template, false); // Body-Vorschau erstellen
 		
-		// Lizenz-PDF vorhanden?
-		$lizenzfilename = false;
+		// Lizenz-PDF DIN A4 vorhanden?
+		$lizenzfilenameA4 = false;
 		if($trainer->license_number_dosb)
 		{
-			$lizenzfilename = TRAINERLIZENZEN_PFAD.'/'.$trainer->license_number_dosb.'.pdf';
-			if(!$mail->insertLizenz || !file_exists($lizenzfilename))
+			$lizenzfilenameA4 = TRAINERLIZENZEN_PFAD.'/'.$trainer->license_number_dosb.'.pdf';
+			if(!$mail->insertLizenz || !file_exists($lizenzfilenameA4))
 			{
-				$lizenzfilename = false;
+				$lizenzfilenameA4 = false;
+			}
+		}
+
+		// Lizenz-PDF Karte vorhanden?
+		$lizenzfilenameCard = false;
+		if($trainer->license_number_dosb)
+		{
+			$lizenzfilenameCard = TRAINERLIZENZEN_PFAD.'/'.$trainer->license_number_dosb.'-card.pdf';
+			if(!$mail->insertLizenzCard || !file_exists($lizenzfilenameCard))
+			{
+				$lizenzfilenameCard = false;
 			}
 		}
 
@@ -53,11 +64,8 @@ class Mailer extends \Backend
 			$this->Session->set('tl_trainerlizenzen_send', null); 
 			$objEmail = new \Email();
 			
-			// Lizenz-PDF anhängen
-			if($lizenzfilename)
-			{
-				$objEmail->attachFile($lizenzfilename); 
-			}
+			if($lizenzfilenameA4) $objEmail->attachFile($lizenzfilenameA4); // Lizenz-PDF DIN A4 anhängen
+			if($lizenzfilenameCard) $objEmail->attachFile($lizenzfilenameCard); // Lizenz-PDF Karte anhängen
 			
 			// Absender "Name <email>" in ein Array $arrFrom aufteilen
 			preg_match('~(?:([^<]*?)\s*)?<(.*)>~', TRAINERLIZENZEN_ABSENDER, $arrFrom);
@@ -132,8 +140,10 @@ class Mailer extends \Backend
 
 <div class="tl_tbox">
 <div class="long">
-  <h3><label for="ctrl_an">Lizenz-PDF</label></h3>
-  '.($lizenzfilename ? 'Wird mitgeschickt.' : 'Nicht vorhanden oder wird nicht mitgeschickt.').'
+  <h3><label for="ctrl_an">Lizenz-PDF DIN A4</label></h3>
+  '.($lizenzfilenameA4 ? 'Wird mitgeschickt.' : 'Nicht vorhanden oder wird nicht mitgeschickt.').'
+  <h3><label for="ctrl_an">Lizenz-PDF Karte</label></h3>
+  '.($lizenzfilenameCard ? 'Wird mitgeschickt.' : 'Nicht vorhanden oder wird nicht mitgeschickt.').'
 </div>
 <div class="long">
   <h3><label for="ctrl_an">An<span class="mandatory">*</span></label></h3>
