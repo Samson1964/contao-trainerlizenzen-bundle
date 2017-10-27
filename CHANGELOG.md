@@ -1,5 +1,10 @@
 # Schachtabelle Changelog
 
+## Version 1.2.1 (2017-10-27)
+
+- Fix: Lizenzverlängerungen im Export
+- Neu: Ausgabe der DOSB-Lizenznummer im Export
+
 ## Version 1.2.0 (2017-10-03)
 
 Neuer Entwicklungszweig: Version 2 mit separater Lizenzentabelle ist noch nicht fertig, aber die neuen API-Funktionen wurden gewünscht
