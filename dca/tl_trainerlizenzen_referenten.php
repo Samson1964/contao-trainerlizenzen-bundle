@@ -119,7 +119,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen_referenten'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen_referenten']['verband'],
 			'inputType'               => 'select',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'flag'                    => 11,
@@ -158,7 +158,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen_referenten'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen_referenten']['funktion'],
 			'inputType'               => 'select',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'flag'                    => 11,

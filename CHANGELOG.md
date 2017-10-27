@@ -1,5 +1,9 @@
 # Schachtabelle Changelog
 
+## Version 1.2.2 (2017-10-27)
+
+- Fix: Felder Benutzergruppen-Berechtigungen fehlten teilweise (exclude = true)
+
 ## Version 1.2.1 (2017-10-27)
 
 - Fix: Lizenzverlängerungen im Export

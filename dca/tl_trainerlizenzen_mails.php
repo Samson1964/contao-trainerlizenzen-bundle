@@ -170,6 +170,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen_mails'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen_mails']['insertLizenz'],
 			'inputType'               => 'checkbox',
 			'default'                 => true,
+			'exclude'                 => true,
 			'eval'                    => array
 			(
 				'tl_class'            => 'w50',
@@ -182,6 +183,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen_mails'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen_mails']['insertLizenzCard'],
 			'inputType'               => 'checkbox',
 			'default'                 => true,
+			'exclude'                 => true,
 			'eval'                    => array
 			(
 				'tl_class'            => 'w50',
@@ -194,6 +196,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen_mails'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen_mails']['copyVerband'],
 			'inputType'               => 'checkbox',
 			'default'                 => true,
+			'exclude'                 => true,
 			'eval'                    => array
 			(
 				'tl_class'            => 'w50 clr',
@@ -206,6 +209,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen_mails'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen_mails']['copyDSB'],
 			'inputType'               => 'checkbox',
 			'default'                 => true,
+			'exclude'                 => true,
 			'eval'                    => array
 			(
 				'tl_class'            => 'w50',

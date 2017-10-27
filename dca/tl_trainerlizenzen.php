@@ -24,7 +24,6 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		'dataContainer'               => 'Table',
 		'ctable'                      => array('tl_trainerlizenzen_mails'),
 		'enableVersioning'            => true,
-		'switchToEdit'                => true,
 		'onload_callback' => array
 		(
 			array('tl_trainerlizenzen', 'applyAdvancedFilter'),
@@ -179,7 +178,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['license_number_dosb'],
 			'input_field_callback'    => array('tl_trainerlizenzen', 'getLizenznummer'),
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'flag'                    => 12,
@@ -225,7 +224,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['view_pdf'],
 			'input_field_callback'    => array('tl_trainerlizenzen', 'getLizenzPDFView'),
-			'exclude'                 => false,
+			'exclude'                 => true,
 		),
 		// Button zur PDF-Anforderung DIN A4
 		'button_pdf' => array
@@ -258,7 +257,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['view_pdfcard'],
 			'input_field_callback'    => array('tl_trainerlizenzen', 'getLizenzPDFCardView'),
-			'exclude'                 => false,
+			'exclude'                 => true,
 		),
 		// Button zur PDF-Anforderung Format Card
 		'button_pdfcard' => array
@@ -292,6 +291,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 			'inputType'               => 'checkbox',
 			'default'                 => true,
 			'filter'                  => true,
+			'exclude'                 => true,
 			'eval'                    => array('tl_class' => 'w50','isBoolean' => true),
 			'sql'                     => "char(1) NOT NULL default ''"
 		),
@@ -300,7 +300,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['vorname'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'filter'                  => false,
@@ -316,7 +316,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['name'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'filter'                  => false,
@@ -332,7 +332,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['titel'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'filter'                  => false,
@@ -347,7 +347,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['geburtstag'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'flag'                    => 8,
@@ -366,7 +366,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['geschlecht'],
 			'inputType'               => 'select',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'flag'                    => 12,
@@ -390,7 +390,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['strasse'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'filter'                  => false,
@@ -408,7 +408,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['plz'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'explanation'             => 'trainerlizenzen_plz', 
@@ -429,7 +429,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['ort'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'filter'                  => false,
@@ -447,7 +447,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['email'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'filter'                  => false,
@@ -463,7 +463,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['telefon'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'filter'                  => false,
@@ -479,7 +479,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verband'],
 			'inputType'               => 'select',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'flag'                    => 11,
@@ -499,7 +499,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['lizenznummer'],
 			'inputType'               => 'text',
 			'default'                 => 'B.38',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'filter'                  => false,
@@ -516,7 +516,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['lizenz'],
 			'inputType'               => 'select',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'filter'                  => true,
@@ -535,7 +535,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['erwerb'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'flag'                    => 8,
@@ -556,7 +556,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung1'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => false,
 			'sorting'                 => false,
 			'flag'                    => 8,
@@ -575,7 +575,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung2'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => false,
 			'sorting'                 => false,
 			'flag'                    => 8,
@@ -594,7 +594,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung3'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => false,
 			'sorting'                 => false,
 			'flag'                    => 8,
@@ -613,7 +613,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung4'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => false,
 			'sorting'                 => false,
 			'flag'                    => 8,
@@ -632,7 +632,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung5'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => false,
 			'sorting'                 => false,
 			'flag'                    => 8,
@@ -651,7 +651,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung6'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => false,
 			'sorting'                 => false,
 			'flag'                    => 8,
@@ -670,7 +670,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung7'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => false,
 			'sorting'                 => false,
 			'flag'                    => 8,
@@ -689,7 +689,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['verlaengerung8'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => false,
 			'sorting'                 => false,
 			'flag'                    => 8,
@@ -736,7 +736,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['gueltigkeit'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'flag'                    => 8,
@@ -758,6 +758,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 			'default'                 => true,
 			'explanation'             => 'trainerlizenzen_kodex', 
 			'filter'                  => true,
+			'exclude'                 => true,
 			'eval'                    => array
 			(
 				'mandatory'           => false,
@@ -773,7 +774,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['codex_date'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'flag'                    => 8,
@@ -794,6 +795,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 			'inputType'               => 'checkbox',
 			'default'                 => true,
 			'filter'                  => true,
+			'exclude'                 => true,
 			'explanation'             => 'trainerlizenzen_kodex', 
 			'eval'                    => array
 			(
@@ -810,7 +812,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['help_date'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'flag'                    => 8,
@@ -829,7 +831,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['letzteAenderung'],
 			'inputType'               => 'text',
-			'exclude'                 => false,
+			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
 			'flag'                    => 8,
@@ -867,6 +869,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 			'inputType'               => 'checkbox',
 			'default'                 => true,
 			'filter'                  => true,
+			'exclude'                 => true,
 			'eval'                    => array('tl_class' => 'w50','isBoolean' => true),
 			'sql'                     => "char(1) NOT NULL default ''"
 		),
