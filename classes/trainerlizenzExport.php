@@ -163,7 +163,7 @@ class trainerlizenzExport extends \Backend
 				$sql .= " ".$key." = '".$value."'";
 			}
 		}
-		$sql .= ' ORDER BY name,vorname ASC';
+		$sql .= " AND published = '1' ORDER BY name,vorname ASC";
 
 		//echo "|$sql|";
 		//exit;

@@ -1,5 +1,9 @@
 # Schachtabelle Changelog
 
+## Version 1.2.3 (2017-10-27)
+
+- Fix: Beim Export wurden auch deaktivierte Trainer exportiert
+
 ## Version 1.2.2 (2017-10-27)
 
 - Fix: Felder Benutzergruppen-Berechtigungen fehlten teilweise (exclude = true)
