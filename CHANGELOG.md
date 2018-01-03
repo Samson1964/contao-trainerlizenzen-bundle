@@ -1,5 +1,9 @@
 # Trainerlizenzen Changelog
 
+## Version 1.3.0 (2018-01-03)
+
+- Fix: Anpassung der Felder für Contao 4 (CSS)
+- Fix: Anpassung der BE-Links für Contao 4
 - Fix: Kompatibilität mit C4 in Trainerliste.php hergestellt
 - Fix: require xls_export in autoload.ini ergänzt
 

@@ -323,7 +323,7 @@ class tl_trainerlizenzen_mails extends Backend
 		}
 		
 		$string = '
-<div class="long clr">
+<div class="long clr widget">
 	<h3><label>'.$GLOBALS['TL_LANG']['tl_trainerlizenzen_mails']['preview'][0].'</label></h3>
 	'.$content.'
 </div>'; 

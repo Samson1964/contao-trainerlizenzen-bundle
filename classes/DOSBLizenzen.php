@@ -180,7 +180,16 @@ class DOSBLizenzen extends \Backend
 		//print $errors;
 		//echo '</pre>';
 
-		$backlink = 'main.php?do=trainerlizenzen&act=edit&id='.$id.'&rt='.REQUEST_TOKEN;
+		// Zurücklink generieren, ab C4 ist das ein symbolischer Link zu "contao"
+		if (version_compare(VERSION, '4.0', '>='))
+		{
+			$backlink = \System::getContainer()->get('router')->generate('contao_backend');
+		}
+		else
+		{
+			$backlink = 'contao/main.php';
+		}
+		$backlink .= '?do=trainerlizenzen&act=edit&id='.$id.'&rt='.REQUEST_TOKEN;
 		header('Location:'.$backlink);
 
 	}
@@ -263,7 +272,16 @@ class DOSBLizenzen extends \Backend
 		$log .= "CURL Errors: $errors";
 		log_message($log, 'trainerlizenzen.log');
 		
-		$backlink = 'main.php?do=trainerlizenzen&act=edit&id='.$id.'&rt='.REQUEST_TOKEN;
+		// Zurücklink generieren, ab C4 ist das ein symbolischer Link zu "contao"
+		if (version_compare(VERSION, '4.0', '>='))
+		{
+			$backlink = \System::getContainer()->get('router')->generate('contao_backend');
+		}
+		else
+		{
+			$backlink = 'contao/main.php';
+		}
+		$backlink = '?do=trainerlizenzen&act=edit&id='.$id.'&rt='.REQUEST_TOKEN;
 		header('Location:'.$backlink);
 
 	}
@@ -349,7 +367,16 @@ class DOSBLizenzen extends \Backend
 		$log .= "CURL Errors: $errors";
 		log_message($log, 'trainerlizenzen.log');
 		
-		$backlink = 'main.php?do=trainerlizenzen&act=edit&id='.$id.'&rt='.REQUEST_TOKEN;
+		// Zurücklink generieren, ab C4 ist das ein symbolischer Link zu "contao"
+		if (version_compare(VERSION, '4.0', '>='))
+		{
+			$backlink = \System::getContainer()->get('router')->generate('contao_backend');
+		}
+		else
+		{
+			$backlink = 'contao/main.php';
+		}
+		$backlink .= '?do=trainerlizenzen&act=edit&id='.$id.'&rt='.REQUEST_TOKEN;
 		header('Location:'.$backlink);
 
 	}
@@ -439,7 +466,16 @@ class DOSBLizenzen extends \Backend
 		else
 		{
 			// Sicherheitsabfrage
-			$startlink = 'contao/main.php?do=trainerlizenzen&key=exportDOSB&start=1&rt='.REQUEST_TOKEN;
+			// Zurücklink generieren, ab C4 ist das ein symbolischer Link zu "contao"
+			if (version_compare(VERSION, '4.0', '>='))
+			{
+				$startlink = \System::getContainer()->get('router')->generate('contao_backend');
+			}
+			else
+			{
+				$startlink = 'contao/main.php';
+			}
+			$startlink .= '?do=trainerlizenzen&key=exportDOSB&start=1&rt='.REQUEST_TOKEN;
 			$content .= '<div>';
 			$content .= '<h2 class="sub_headline">Aktive Lizenzen zum DOSB exportieren</h2>';
 			$content .= '<div class="tl_submit_container">';

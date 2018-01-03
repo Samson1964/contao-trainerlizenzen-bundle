@@ -265,7 +265,12 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen_referenten'] = array
 			'sorting'                 => true,
 			'flag'                    => 1,
 			'search'                  => true,
-			'eval'                    => array('mandatory'=>false, 'maxlength'=>255, 'tl_class'=>'w50'),
+			'eval'                    => array
+			(
+				'mandatory'           => false,
+				'maxlength'           => 255,
+				'tl_class'            => 'w50 clr'
+			),
 			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'telefon1' => array
@@ -417,7 +422,16 @@ class tl_trainerlizenzen_referenten extends Backend
 		if (!$this->User->isAdmin && !$this->User->hasAccess('tl_trainerlizenzen_referenten::published', 'alexf'))
 		{
 			$this->log('Kein Zugriffsrecht für Aktivierung Datensatz ID "'.$intId.'"', 'tl_trainerlizenzen_referenten toggleVisibility', TL_ERROR);
-			$this->redirect('contao/main.php?act=error');
+			// Zurücklink generieren, ab C4 ist das ein symbolischer Link zu "contao"
+			if (version_compare(VERSION, '4.0', '>='))
+			{
+				$backlink = \System::getContainer()->get('router')->generate('contao_backend');
+			}
+			else
+			{
+				$backlink = 'contao/main.php';
+			}
+			$this->redirect($backlink.'?act=error');
 		}
 		
 		$this->createInitialVersion('tl_trainerlizenzen_referenten', $intId);

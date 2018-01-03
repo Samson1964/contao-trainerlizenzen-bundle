@@ -143,7 +143,6 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array('codex', 'help'),
-		//'default'                     => '{verification_legend},verification;{dosb_legend},license_number_dosb,button_license,view_pdf,button_pdf;{marker_legend},marker;{name_legend},vorname,name,titel,geburtstag,geschlecht;{adresse_legend},strasse,plz,ort,email,telefon;{verband_legend},verband;{lizenz_legend},lizenznummer,lizenz;{lizenzver_legend},erwerb,verlaengerung1,verlaengerung2,verlaengerung3,verlaengerung4,verlaengerung5;{lizenzbis_legend},gueltigkeit;{codex_legend},codex,help;{datum_legend},letzteAenderung;{hinweise_legend:hide},bemerkung;{published_legend},published'
 		'default'                     => 'verification,{dosb_legend},license_number_dosb,button_license,view_pdf,button_pdf,view_pdfcard,button_pdfcard;{marker_legend},marker;{name_legend},vorname,name,titel,geburtstag,geschlecht;{adresse_legend},strasse,plz,ort,email,telefon;{verband_legend},verband;{lizenz_legend},lizenznummer,lizenz;{lizenzver_legend},erwerb,verlaengerungen;{lizenzbis_legend},gueltigkeit;{codex_legend},codex,help;{datum_legend},letzteAenderung,setHeute;{hinweise_legend:hide},bemerkung;{published_legend},published'
 	),
 
@@ -455,7 +454,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 			'eval'                    => array
 			(
 				'rgxp'                => 'email',
-				'tl_class'            => 'w50'
+				'tl_class'            => 'w50 clr'
 			)
 		),
 		// Telefon
@@ -935,7 +934,16 @@ class tl_trainerlizenzen extends \Backend
 		if (!$this->User->isAdmin && !$this->User->hasAccess('tl_trainerlizenzen::published', 'alexf'))
 		{
 			$this->log('Kein Zugriffsrecht für Aktivierung Datensatz ID "'.$intId.'"', 'tl_trainerlizenzen toggleVisibility', TL_ERROR);
-			$this->redirect('contao/main.php?act=error');
+			// Zurücklink generieren, ab C4 ist das ein symbolischer Link zu "contao"
+			if (version_compare(VERSION, '4.0', '>='))
+			{
+				$backlink = \System::getContainer()->get('router')->generate('contao_backend');
+			}
+			else
+			{
+				$backlink = 'contao/main.php';
+			}
+			$this->redirect($backlink.'?act=error');
 		}
 		
 		$this->createInitialVersion('tl_trainerlizenzen', $intId);
@@ -981,7 +989,7 @@ class tl_trainerlizenzen extends \Backend
 		// Lizenzstatus
 		if($dc->activeRecord->license_number_dosb)
 		{
-			$status = '<b>'.$dc->activeRecord->license_number_dosb.'</b> <a href="'.LIMS_LINK.'dosb_license/'.$dc->activeRecord->lid.'" target="_blank" class="dosb_button_mini">Ansehen</a>';
+			$status = '<b>'.$dc->activeRecord->license_number_dosb.'&nbsp;&nbsp;</b><a href="'.LIMS_LINK.'dosb_license/'.$dc->activeRecord->lid.'" target="_blank" class="dosb_button_mini">Ansehen</a>';
 		}
 		else
 		{
@@ -989,7 +997,7 @@ class tl_trainerlizenzen extends \Backend
 		}
 		
 		$string = '
-<div class="w50" style="height:40px;">
+<div class="w50 widget" style="height:40px;">
 	<h3><label>&nbsp;</label></h3>
 	'.$status.'
 </div>'; 
@@ -999,7 +1007,16 @@ class tl_trainerlizenzen extends \Backend
 
 	public function getLizenzbutton(DataContainer $dc)
 	{
-		$link = 'contao/main.php?do=trainerlizenzen&amp;key=getLizenz&amp;id=' . $dc->activeRecord->id . '&amp;rt=' . REQUEST_TOKEN;
+		// Zurücklink generieren, ab C4 ist das ein symbolischer Link zu "contao"
+		if (version_compare(VERSION, '4.0', '>='))
+		{
+			$link = \System::getContainer()->get('router')->generate('contao_backend');
+		}
+		else
+		{
+			$link = 'contao/main.php';
+		}
+		$link .= '?do=trainerlizenzen&amp;key=getLizenz&amp;id=' . $dc->activeRecord->id . '&amp;rt=' . REQUEST_TOKEN;
 
 		// Letzter Lizenzabruf und Rückgabecode
 		if($dc->activeRecord->dosb_tstamp)
@@ -1009,10 +1026,10 @@ class tl_trainerlizenzen extends \Backend
 		else $antwort = '';
 		
 		$string = '
-<div class="w50" style="height:40px;">
+<div class="w50 widget" style="height:40px;">
 	<h3><label>&nbsp;</label></h3>
 	<a href="'.$link.'" class="dosb_button">'.$GLOBALS['TL_LANG']['tl_trainerlizenzen']['button_license'][0].'</a>
-	<p class="tl_help tl_tip" title="">'.$antwort.'</p>
+	<p class="tl_help tl_tip" title="" style="margin-top:3px;">'.$antwort.'</p>
 </div>'; 
 		
 		return $string;
@@ -1036,7 +1053,7 @@ class tl_trainerlizenzen extends \Backend
 		if($dc->activeRecord->license_number_dosb)
 		{
 		$string = '
-<div class="w50" style="height:40px;">
+<div class="w50 widget" style="height:40px;">
 	<h3><label>&nbsp;</label></h3>
 	'.$status.$email.'
 </div> '; 
@@ -1048,7 +1065,16 @@ class tl_trainerlizenzen extends \Backend
 	public function getLizenzPDF(DataContainer $dc)
 	{
 
-		$link = 'contao/main.php?do=trainerlizenzen&amp;key=getLizenzPDF&amp;id=' . $dc->activeRecord->id . '&amp;rt=' . REQUEST_TOKEN;
+		// Zurücklink generieren, ab C4 ist das ein symbolischer Link zu "contao"
+		if (version_compare(VERSION, '4.0', '>='))
+		{
+			$link = \System::getContainer()->get('router')->generate('contao_backend');
+		}
+		else
+		{
+			$link = 'contao/main.php';
+		}
+		$link .= '?do=trainerlizenzen&amp;key=getLizenzPDF&amp;id=' . $dc->activeRecord->id . '&amp;rt=' . REQUEST_TOKEN;
 
 		// Letzter Lizenzabruf und Rückgabecode
 		if($dc->activeRecord->dosb_pdf_tstamp)
@@ -1060,10 +1086,10 @@ class tl_trainerlizenzen extends \Backend
 		if($dc->activeRecord->license_number_dosb)
 		{
 		$string = '
-<div class="w50" style="height:40px;">
+<div class="w50 widget" style="height:40px;">
 	<h3><label>&nbsp;</label></h3>
 	<a href="'.$link.'" class="dosb_button">'.$GLOBALS['TL_LANG']['tl_trainerlizenzen']['button_pdf'][0].'</a>
-	<p class="tl_help tl_tip" title="">'.$antwort.'</p>
+	<p class="tl_help tl_tip" title="" style="margin-top:3px;">'.$antwort.'</p>
 </div>'; 
 			return $string;
 		}
@@ -1089,7 +1115,7 @@ class tl_trainerlizenzen extends \Backend
 		if($dc->activeRecord->license_number_dosb)
 		{
 		$string = '
-<div class="w50" style="height:40px;">
+<div class="w50 widget" style="height:40px;">
 	<h3><label>&nbsp;</label></h3>
 	'.$status.$email.'
 </div> '; 
@@ -1101,7 +1127,16 @@ class tl_trainerlizenzen extends \Backend
 	public function getLizenzPDFCard(DataContainer $dc)
 	{
 
-		$link = 'contao/main.php?do=trainerlizenzen&amp;key=getLizenzPDFCard&amp;id=' . $dc->activeRecord->id . '&amp;rt=' . REQUEST_TOKEN;
+		// Zurücklink generieren, ab C4 ist das ein symbolischer Link zu "contao"
+		if (version_compare(VERSION, '4.0', '>='))
+		{
+			$link = \System::getContainer()->get('router')->generate('contao_backend');
+		}
+		else
+		{
+			$link = 'contao/main.php';
+		}
+		$link .= '?do=trainerlizenzen&amp;key=getLizenzPDFCard&amp;id=' . $dc->activeRecord->id . '&amp;rt=' . REQUEST_TOKEN;
 
 		// Letzter Lizenzabruf und Rückgabecode
 		if($dc->activeRecord->dosb_pdf_tstamp)
@@ -1113,10 +1148,10 @@ class tl_trainerlizenzen extends \Backend
 		if($dc->activeRecord->license_number_dosb)
 		{
 		$string = '
-<div class="w50" style="height:40px;">
+<div class="w50 widget" style="height:40px;">
 	<h3><label>&nbsp;</label></h3>
 	<a href="'.$link.'" class="dosb_button">'.$GLOBALS['TL_LANG']['tl_trainerlizenzen']['button_pdfcard'][0].'</a>
-	<p class="tl_help tl_tip" title="">'.$antwort.'</p>
+	<p class="tl_help tl_tip" title="" style="margin-top:3px;">'.$antwort.'</p>
 </div>'; 
 			return $string;
 		}
@@ -1134,7 +1169,16 @@ class tl_trainerlizenzen extends \Backend
 	 */
 	public function setHeute(DataContainer $dc)
 	{
-		$link = 'contao/main.php?do=trainerlizenzen&amp;key=getLizenz&amp;id=' . $dc->activeRecord->id . '&amp;rt=' . REQUEST_TOKEN;
+		// Zurücklink generieren, ab C4 ist das ein symbolischer Link zu "contao"
+		if (version_compare(VERSION, '4.0', '>='))
+		{
+			$link = \System::getContainer()->get('router')->generate('contao_backend');
+		}
+		else
+		{
+			$link = 'contao/main.php';
+		}
+		$link .= '?do=trainerlizenzen&amp;key=getLizenz&amp;id=' . $dc->activeRecord->id . '&amp;rt=' . REQUEST_TOKEN;
 
 		// Letzter Lizenzabruf und Rückgabecode
 		if($dc->activeRecord->dosb_tstamp)
@@ -1144,10 +1188,10 @@ class tl_trainerlizenzen extends \Backend
 		else $antwort = '';
 		
 		$string = '
-<div class="w50" style="display:none">
+<div class="w50 widget" style="display:none">
 	<h3><label>&nbsp;</label></h3>
 	<a href="#" onclick="AjaxRequest.toggleSubpalette(this, \'sub_login\', \'login\')" onfocus="Backend.getScrollOffset()" class="dosb_button_mini">'.$GLOBALS['TL_LANG']['tl_trainerlizenzen']['setHeute'][0].'</a>
-	<p class="tl_help tl_tip" title="">'.$GLOBALS['TL_LANG']['tl_trainerlizenzen']['setHeute'][1].'</p>
+	<p class="tl_help tl_tip" title="" style="margin-top:3px;">'.$GLOBALS['TL_LANG']['tl_trainerlizenzen']['setHeute'][1].'</p>
 </div>'; 
 		
 		return $string;

@@ -97,7 +97,16 @@ class Mailer extends \Backend
 												   ->execute($dc->id);
 				// Email-Versand bestätigen und weiterleiten
 				\Message::addConfirmation('E-Mail versendet'); 
-				\Controller::redirect('contao/main.php?do='.\Input::get('do').'&table='.\Input::get('table').'&id='.$mail->pid);
+				// Zurücklink generieren, ab C4 ist das ein symbolischer Link zu "contao"
+				if (version_compare(VERSION, '4.0', '>='))
+				{
+					$backlink = \System::getContainer()->get('router')->generate('contao_backend');
+				}
+				else
+				{
+					$backlink = 'contao/main.php';
+				}
+				\Controller::redirect($backlink.'?do='.\Input::get('do').'&table='.\Input::get('table').'&id='.$mail->pid);
 			}
 			exit;
 		}
@@ -139,23 +148,23 @@ class Mailer extends \Backend
 <div class="preview_html">' .$preview_body. '</div>
 
 <div class="tl_tbox">
-<div class="long">
-  <h3><label for="ctrl_an">Lizenz-PDF DIN A4</label></h3>
-  '.($lizenzfilenameA4 ? 'Wird mitgeschickt.' : 'Nicht vorhanden oder wird nicht mitgeschickt.').'
-  <h3><label for="ctrl_an">Lizenz-PDF Karte</label></h3>
-  '.($lizenzfilenameCard ? 'Wird mitgeschickt.' : 'Nicht vorhanden oder wird nicht mitgeschickt.').'
+<div class="long widget">
+  <b>Lizenz-PDF DIN A4:</b> <span>&nbsp;&nbsp;'.($lizenzfilenameA4 ? 'Wird mitgeschickt.' : 'Nicht vorhanden oder wird nicht mitgeschickt.').'</span>
 </div>
-<div class="long">
+<div class="long widget">
+  <b>Lizenz-PDF Karte:</b> <span>&nbsp;&nbsp;'.($lizenzfilenameCard ? 'Wird mitgeschickt.' : 'Nicht vorhanden oder wird nicht mitgeschickt.').'</span>
+</div>
+<div class="long widget">
   <h3><label for="ctrl_an">An<span class="mandatory">*</span></label></h3>
   <input type="text" name="an" id="ctrl_an" value="'.$email_an.'" class="tl_text" onfocus="Backend.getScrollOffset()">
   <p class="tl_help tl_tip">Pflichtfeld: Empfänger dieser E-Mail. Weitere Empfänger mit Komma trennen.</p>
 </div>
-<div class="long">
+<div class="long widget">
   <h3><label for="ctrl_cc">Cc</label></h3>
   <input type="text" name="cc" id="ctrl_cc" value="'.$email_cc.'" class="tl_text" onfocus="Backend.getScrollOffset()">
   <p class="tl_help tl_tip">Kopie-Empfänger dieser E-Mail. Weitere Empfänger mit Komma trennen.</p>
 </div>
-<div class="long">
+<div class="long widget">
   <h3><label for="ctrl_bcc">Bcc</label></h3>
   <input type="text" name="bcc" id="ctrl_bcc" value="'.$email_bcc.'" class="tl_text" onfocus="Backend.getScrollOffset()">
   <p class="tl_help tl_tip">Blindkopie-Empfänger dieser E-Mail. Weitere Empfänger mit Komma trennen.</p>
@@ -164,8 +173,8 @@ class Mailer extends \Backend
 </div>
 </div>
 <div class="tl_formbody_submit">
-<div class="tl_submit_container" style="left: 503px; width: 885px;">
-'.($mail->sent_state ? 'Die E-Mail wurde bereits gesendet!' : '<input type="submit" onclick="return confirm(\'Soll die E-Mail wirklich verschickt werden?\')" value="E-Mail versenden" accesskey="s" class="tl_submit" id="send">').'
+<div class="tl_submit_container">
+'.($mail->sent_state ? '<span class="mandatory">Die E-Mail wurde bereits gesendet!</span>' : '<input type="submit" onclick="return confirm(\'Soll die E-Mail wirklich verschickt werden?\')" value="E-Mail versenden" accesskey="s" class="tl_submit" id="send">').'
 </div>
 </div>
 </form>'; 
