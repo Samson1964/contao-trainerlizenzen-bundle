@@ -22,6 +22,7 @@ use Contao\Controller;
  * Initialize the system
  */
 define('TL_MODE', 'FE');
+define('TL_SCRIPT', 'system/modules/trainerlizenzen/public/Trainerliste.php'); 
 // ER2 / ER3 (dev over symlink)
 if(file_exists('../../../initialize.php')) require('../../../initialize.php');
 else require('../../../../../system/initialize.php');

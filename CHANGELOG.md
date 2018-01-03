@@ -1,4 +1,7 @@
-# Schachtabelle Changelog
+# Trainerlizenzen Changelog
+
+- Fix: Kompatibilität mit C4 in Trainerliste.php hergestellt
+- Fix: require xls_export in autoload.ini ergänzt
 
 ## Version 1.2.3 (2017-10-27)
 
