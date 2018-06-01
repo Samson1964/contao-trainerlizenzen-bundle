@@ -1,5 +1,12 @@
 # Trainerlizenzen Changelog
 
+## Version 1.4.0 (2018-06-01)
+
+- Add: Bundesverband im Referenten-Formular (für besondere Rechte z.B. bei E-Mails)
+- Fix: Beim Mailversand wurde bisher nur 1 Referent des LV berücksichtigt
+- Add: DSB-Verantwortliche/r bekommt optional BCC der E-Mail
+- Add: DSB-Verantwortliche/r bekommt die Trainerliste immer als BCC
+
 ## Version 1.3.0 (2018-01-03)
 
 - Fix: Anpassung der Felder für Contao 4 (CSS)

@@ -415,9 +415,8 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 			'sql'                     => "varchar(32) NOT NULL default ''",
 			'eval'                    => array
 			(
-				'rgxp'                => 'natural',
 				'minlength'           => 5,
-				'maxlength'           => 5,
+				'maxlength'           => 8,
 				'mandatory'           => true,
 				'helpwizard'          => true,
 				'tl_class'            => 'w50 clr'
@@ -997,8 +996,7 @@ class tl_trainerlizenzen extends \Backend
 		}
 		
 		$string = '
-<div class="w50 widget" style="height:40px;">
-	<h3><label>&nbsp;</label></h3>
+<div class="w50 widget" style="height:45px;">
 	'.$status.'
 </div>'; 
 		
@@ -1026,8 +1024,7 @@ class tl_trainerlizenzen extends \Backend
 		else $antwort = '';
 		
 		$string = '
-<div class="w50 widget" style="height:40px;">
-	<h3><label>&nbsp;</label></h3>
+<div class="w50 widget" style="height:45px;">
 	<a href="'.$link.'" class="dosb_button">'.$GLOBALS['TL_LANG']['tl_trainerlizenzen']['button_license'][0].'</a>
 	<p class="tl_help tl_tip" title="" style="margin-top:3px;">'.$antwort.'</p>
 </div>'; 
@@ -1053,8 +1050,7 @@ class tl_trainerlizenzen extends \Backend
 		if($dc->activeRecord->license_number_dosb)
 		{
 		$string = '
-<div class="w50 widget" style="height:40px;">
-	<h3><label>&nbsp;</label></h3>
+<div class="w50 widget" style="height:45px;">
 	'.$status.$email.'
 </div> '; 
 			return $string;
@@ -1086,8 +1082,7 @@ class tl_trainerlizenzen extends \Backend
 		if($dc->activeRecord->license_number_dosb)
 		{
 		$string = '
-<div class="w50 widget" style="height:40px;">
-	<h3><label>&nbsp;</label></h3>
+<div class="w50 widget" style="height:45px;">
 	<a href="'.$link.'" class="dosb_button">'.$GLOBALS['TL_LANG']['tl_trainerlizenzen']['button_pdf'][0].'</a>
 	<p class="tl_help tl_tip" title="" style="margin-top:3px;">'.$antwort.'</p>
 </div>'; 
@@ -1115,8 +1110,7 @@ class tl_trainerlizenzen extends \Backend
 		if($dc->activeRecord->license_number_dosb)
 		{
 		$string = '
-<div class="w50 widget" style="height:40px;">
-	<h3><label>&nbsp;</label></h3>
+<div class="w50 widget" style="height:45px;">
 	'.$status.$email.'
 </div> '; 
 			return $string;
@@ -1148,8 +1142,7 @@ class tl_trainerlizenzen extends \Backend
 		if($dc->activeRecord->license_number_dosb)
 		{
 		$string = '
-<div class="w50 widget" style="height:40px;">
-	<h3><label>&nbsp;</label></h3>
+<div class="w50 widget" style="height:45px;">
 	<a href="'.$link.'" class="dosb_button">'.$GLOBALS['TL_LANG']['tl_trainerlizenzen']['button_pdfcard'][0].'</a>
 	<p class="tl_help tl_tip" title="" style="margin-top:3px;">'.$antwort.'</p>
 </div>'; 
@@ -1189,7 +1182,6 @@ class tl_trainerlizenzen extends \Backend
 		
 		$string = '
 <div class="w50 widget" style="display:none">
-	<h3><label>&nbsp;</label></h3>
 	<a href="#" onclick="AjaxRequest.toggleSubpalette(this, \'sub_login\', \'login\')" onfocus="Backend.getScrollOffset()" class="dosb_button_mini">'.$GLOBALS['TL_LANG']['tl_trainerlizenzen']['setHeute'][0].'</a>
 	<p class="tl_help tl_tip" title="" style="margin-top:3px;">'.$GLOBALS['TL_LANG']['tl_trainerlizenzen']['setHeute'][1].'</p>
 </div>'; 

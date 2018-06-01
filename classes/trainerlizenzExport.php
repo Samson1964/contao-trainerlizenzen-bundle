@@ -92,7 +92,6 @@ class trainerlizenzExport extends \Backend
 					case 3: // DOSB-Lizenznummer
 					case 4: // Lizenznummer
 					case 18: // Bemerkung
-					case 21: // Emailadresse
 					case 17: // Letzte Änderung
 						$breite = 4000;
 						break;
@@ -101,6 +100,7 @@ class trainerlizenzExport extends \Backend
 						$breite = 4500;
 						break;
 					case 8: // Straße
+					case 21: // Emailadresse
 					case 22: // Verband
 						$breite = 5000;
 						break;
@@ -163,13 +163,16 @@ class trainerlizenzExport extends \Backend
 				$sql .= " ".$key." = '".$value."'";
 			}
 		}
-		$sql .= " AND published = '1' ORDER BY name,vorname ASC";
+		($sql) ? $sql .= " AND published = '1' ORDER BY name,vorname ASC" : $sql = " WHERE published = '1' ORDER BY name,vorname ASC";
 
 		//echo "|$sql|";
 		//exit;
+		log_message('Excel-Export mit: SELECT * FROM tl_trainerlizenzen'.$sql, 'trainerlizenzen.log');
 		// Datensätze laden
 		$records = \Database::getInstance()->prepare('SELECT * FROM tl_trainerlizenzen'.$sql)
 										   ->execute();
+
+		$verbandsname = \Samson\Trainerlizenzen\Helper::getVerbaende(); // Verbandskurzzeichen und -namen laden
 
 		// Datensätze umwandeln
 		$arrExport = array();
@@ -224,7 +227,7 @@ class trainerlizenzExport extends \Backend
 				$arrExport[$x]['published'] = $records->published;
 				$arrExport[$x]['titel'] = $records->titel;
 				$arrExport[$x]['email'] = $records->email;
-				$arrExport[$x]['verband'] = utf8_decode($records->verband);
+				$arrExport[$x]['verband'] = utf8_decode($verbandsname[$records->verband]);
 				$arrExport[$x]['id'] = $records->id;
 				$arrExport[$x]['tstamp'] = date("d.m.Y H:i:s",$records->tstamp);
 				$x++;

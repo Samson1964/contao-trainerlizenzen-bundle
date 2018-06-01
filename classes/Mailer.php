@@ -23,13 +23,16 @@ class Mailer extends \Backend
 		
 		// E-Mail-Datensatz einlesen
 		$mail = \Database::getInstance()->prepare("SELECT * FROM tl_trainerlizenzen_mails WHERE id = ?")
-										->execute($dc->id);
+		                                ->execute($dc->id);
 		// Trainer-Datensatz einlesen
 		$trainer = \Database::getInstance()->prepare("SELECT * FROM tl_trainerlizenzen WHERE id = ?")
-										   ->execute($mail->pid);
-		// Referenten-Datensatz einlesen
-		$referent = \Database::getInstance()->prepare("SELECT * FROM tl_trainerlizenzen_referenten WHERE verband = ? AND published = ?")
-										    ->execute($trainer->verband, 1);
+		                                   ->execute($mail->pid);
+		// Referenten-Datensätze einlesen
+		$referenten = \Database::getInstance()->prepare("SELECT * FROM tl_trainerlizenzen_referenten WHERE verband = ? AND published = ?")
+		                                      ->execute($trainer->verband, 1);
+		// Datensätze mit DSB-Referenten einlesen
+		$dsbreferenten = \Database::getInstance()->prepare("SELECT * FROM tl_trainerlizenzen_referenten WHERE verband = ? AND published = ?")
+		                                         ->execute('S', 1);
 
 		$preview = $this->getPreview($dc->id, $mail->pid, $mail->template); // HTML-Vorschau erstellen
 		$preview_css = $this->getPreview($dc->id, $mail->pid, $mail->template, true, $css); // HTML/CSS-Version erstellen
@@ -59,7 +62,7 @@ class Mailer extends \Backend
 
 		// E-Mail versenden
 		if(\Input::get('token') != '' && \Input::get('token') == $this->Session->get('tl_trainerlizenzen_send'))
-		{ 
+		{
 			
 			$this->Session->set('tl_trainerlizenzen_send', null); 
 			$objEmail = new \Email();
@@ -93,8 +96,8 @@ class Mailer extends \Backend
 					'sent_text'  => $preview_body
 				);
 				$trainer = \Database::getInstance()->prepare("UPDATE tl_trainerlizenzen_mails %s WHERE id = ?")
-												   ->set($set)
-												   ->execute($dc->id);
+				                                   ->set($set)
+				                                   ->execute($dc->id);
 				// Email-Versand bestätigen und weiterleiten
 				\Message::addConfirmation('E-Mail versendet'); 
 				// Zurücklink generieren, ab C4 ist das ein symbolischer Link zu "contao"
@@ -112,13 +115,34 @@ class Mailer extends \Backend
 		}
 		
 		// E-Mail-Empfänger festlegen
+		// 1. Lizenzinhaber
 		$trainer->email ? $email_an = htmlentities($trainer->vorname.' '.$trainer->name.' <'.$trainer->email.'>') : $email_an = '';
-		$mail->copyVerband && $referent->email ? $email_cc = htmlentities($referent->vorname.' '.$referent->nachname.' <'.$referent->email.'>') : $email_cc = '';
-		$mail->copyDSB ? $email_bcc = htmlentities(TRAINERLIZENZEN_ABSENDER) : $email_bcc = '';
+		// 2. Referenten, die informiert werden wollen
+		if($mail->copyVerband && $referenten->numRows > 0)
+		{
+			$email_cc = '';
+			while($referenten->next())
+			{
+				$email_cc .= htmlentities($referenten->vorname.' '.$referenten->nachname.' <'.$referenten->email.'>, ');
+			}
+			if($email_cc) $email_cc = substr($email_cc, 0, -2); // Letztes ", " entfernen
+		}
+		// 3. Kopie an Verantwortliche in DSB-GS und andere DSB-Referenten
+		if($mail->copyDSB)
+		{
+			$email_bcc = htmlentities(TRAINERLIZENZEN_ABSENDER);
+			if($dsbreferenten->numRows > 0)
+			{
+				while($dsbreferenten->next())
+				{
+					$email_bcc .= htmlentities(', '.$dsbreferenten->vorname.' '.$dsbreferenten->nachname.' <'.$dsbreferenten->email.'>');
+				}
+			}
+		}
 
 		$strToken = md5(uniqid(mt_rand(), true));
 		$this->Session->set('tl_trainerlizenzen_send', $strToken); 
-				
+
 		return
 		'<div id="tl_buttons">
 <a href="'.$this->getReferer(true).'" class="header_back" title="'.specialchars($GLOBALS['TL_LANG']['MSC']['backBTTitle']).'" accesskey="b">'.$GLOBALS['TL_LANG']['MSC']['backBT'].'</a>

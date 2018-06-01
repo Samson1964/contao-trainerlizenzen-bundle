@@ -128,6 +128,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen_referenten'] = array
 			'options'                 => array
 			(
 				'-'                   => '-',
+				'S'                   => 'Deutscher Schachbund',
 				'1'                   => 'Baden',
 				'2'                   => 'Bayern',
 				'3'                   => 'Berlin',

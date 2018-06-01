@@ -8,10 +8,10 @@ $GLOBALS['TL_LANG']['tl_trainerlizenzen_referenten']['lizenzen'][1] = 'Trainerli
  */
 
 $GLOBALS['TL_LANG']['tl_trainerlizenzen_referenten']['verband_legend'] = 'Verband';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen_referenten']['verband'][0] = 'Landesverband';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen_referenten']['verband'][1] = 'Bitte wählen Sie den Landesverband des Referenten aus.';
+$GLOBALS['TL_LANG']['tl_trainerlizenzen_referenten']['verband'][0] = 'Bundes- oder Landesverband';
+$GLOBALS['TL_LANG']['tl_trainerlizenzen_referenten']['verband'][1] = 'Bitte wählen Sie den Verband des Referenten aus. Bei Auswahl von <i>Deutscher Schachbund</i> hat der Referent besondere Rechte und wird beim E-Mail-Versand gesondert berücksichtigt.';
 $GLOBALS['TL_LANG']['tl_trainerlizenzen_referenten']['funktion'][0] = 'Funktion';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen_referenten']['funktion'][1] = 'Funktion im Landesverband';
+$GLOBALS['TL_LANG']['tl_trainerlizenzen_referenten']['funktion'][1] = 'Funktion im Verband';
 
 $GLOBALS["TL_LANG"]["tl_trainerlizenzen_referenten"]["person_legend"] = "Name";
 $GLOBALS["TL_LANG"]["tl_trainerlizenzen_referenten"]["nachname"][0] = "Nachname";

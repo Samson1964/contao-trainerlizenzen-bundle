@@ -52,6 +52,10 @@ class Trainerliste
 		// Referenten laden, die informiert werden wollen
 		$objReferenten = \Database::getInstance()->prepare("SELECT * FROM tl_trainerlizenzen_referenten WHERE sent_info = ? AND published = ? AND email != ?")
 		                                         ->execute(1, 1, '');
+		// DSB-Verantwortliche laden, die informiert werden wollen
+		$objDSBReferenten = \Database::getInstance()->prepare("SELECT * FROM tl_trainerlizenzen_referenten WHERE sent_info = ? AND verband = ? AND published = ? AND email != ?")
+		                                            ->execute(1, 'S', 1, '');
+
 		if($objReferenten->numRows) 
 		{
 			while($objReferenten->next())
@@ -147,12 +151,19 @@ class Trainerliste
 					$objEmail->fromName = 'Judith Ulrich';
 					$objEmail->subject = '[DSB-Lizenzen] Aktuelle Trainerliste '.$verbaende[$objReferenten->verband];
 					$objEmail->html = $content;
-					$objEmail->attachFile(TL_ROOT.'/files/trainerlizenzen/versandlisten/'.$filename); 
-					$objEmail->sendBcc(array
-					(
-						'Frank Hoppe <webmaster@schachbund.de>',
-						'Judith Ulrich <lizenzen@schachbund.de>'
-					)); 
+					$objEmail->attachFile(TL_ROOT.'/files/trainerlizenzen/versandlisten/'.$filename);
+					// BCC-Empfänger festlegen
+					$bcc = array();
+					$bcc[] = 'Frank Hoppe <webmaster@schachbund.de>';
+					$bcc[] = 'Judith Ulrich <lizenzen@schachbund.de>';
+					if($objDSBReferenten->numRows > 0)
+					{
+						while($objDSBReferenten->next())
+						{
+							$bcc[] = htmlentities($dsbreferenten->vorname.' '.$dsbreferenten->nachname.' <'.$dsbreferenten->email.'>');
+						}
+					}
+					$objEmail->sendBcc($bcc);
 					if($objEmail->sendTo(array($objReferenten->vorname.' '.$objReferenten->nachname.' <'.$objReferenten->email.'>')))
 					{
 						// Versand in Ordnung, Datum merken
@@ -161,8 +172,8 @@ class Trainerliste
 							'sent_date'  => time()
 						);
 						$trainer = \Database::getInstance()->prepare("UPDATE tl_trainerlizenzen_referenten %s WHERE id = ?")
-														   ->set($set)
-														   ->execute($objReferenten->id);
+						                                   ->set($set)
+						                                   ->execute($objReferenten->id);
 					}
 				} 
 			}
