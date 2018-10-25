@@ -1061,7 +1061,7 @@ class tl_trainerlizenzen extends \Backend
 		if($dc->activeRecord->license_number_dosb)
 		{
 		$string = '
-<div class="w50 widget" style="height:45px;">
+<div class="w50 widget" style="height:45px; font-size:12px;">
 	'.$status.$email.'
 </div> '; 
 			return $string;
@@ -1098,7 +1098,7 @@ class tl_trainerlizenzen extends \Backend
 		if($dc->activeRecord->license_number_dosb)
 		{
 		$string = '
-<div class="w50 widget" style="height:45px;">
+<div class="w50 widget" style="height:45px; font-size:12px;">
 	'.$status.$email.'
 </div> '; 
 			return $string;
