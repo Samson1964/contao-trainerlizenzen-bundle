@@ -288,7 +288,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen']['marker'],
 			'inputType'               => 'checkbox',
-			'default'                 => true,
+			'default'                 => false,
 			'filter'                  => true,
 			'exclude'                 => true,
 			'eval'                    => array('tl_class' => 'w50','isBoolean' => true),
@@ -1032,12 +1032,23 @@ class tl_trainerlizenzen extends \Backend
 		return $string;
 	}
 	
+	/**
+	 * Link zum PDF im DIN-A4-Format anzeigen
+	 * @param DataContainer $dc
+	 *
+	 * @return string HTML-Code
+	 */
 	public function getLizenzPDFView(DataContainer $dc)
 	{
+		// Links zum PDF generieren
+		$pdf_server = TL_ROOT.'/files/trainerlizenzen/'.$dc->activeRecord->license_number_dosb.'.pdf';
+		$pdf_download = 'files/trainerlizenzen/'.$dc->activeRecord->license_number_dosb.'.pdf';
+		
 		// Lizenzstatus
-		if($dc->activeRecord->license_number_dosb && file_exists(TL_ROOT.'/files/trainerlizenzen/'.$dc->activeRecord->license_number_dosb.'.pdf'))
+		if($dc->activeRecord->license_number_dosb && file_exists($pdf_server))
 		{
-			$status = '<a href="files/trainerlizenzen/'.$dc->activeRecord->license_number_dosb.'.pdf" target="_blank" title="Zeigt die auf dem DSB-Server gespeicherte Lizenzurkunde an." class="dosb_button_mini">PDF DIN A4 anzeigen</a>';
+			$pdf_datum = date('d.m.Y H:i:s', filemtime($pdf_server));
+			$status = '<a href="'.$pdf_download.'" target="_blank" title="Zeigt die auf dem DSB-Server gespeicherte Lizenzurkunde an." class="dosb_button_mini">PDF DIN A4 anzeigen</a> PDF-Datum: '.$pdf_datum;
 			//$email = '&nbsp;<a href="" title="Verschickt die Lizenzurkunde mit der Standard-Mailvorlage an den Trainer, den Landesverband und den DSB" class="dosb_button_mini">PDF verschicken</a>';
 			$email = '';
 		}
@@ -1058,46 +1069,23 @@ class tl_trainerlizenzen extends \Backend
 		else return '';
 	}
 
-	public function getLizenzPDF(DataContainer $dc)
-	{
-
-		// Zurücklink generieren, ab C4 ist das ein symbolischer Link zu "contao"
-		if (version_compare(VERSION, '4.0', '>='))
-		{
-			$link = \System::getContainer()->get('router')->generate('contao_backend');
-		}
-		else
-		{
-			$link = 'contao/main.php';
-		}
-		$link .= '?do=trainerlizenzen&amp;key=getLizenzPDF&amp;id=' . $dc->activeRecord->id . '&amp;rt=' . REQUEST_TOKEN;
-
-		// Letzter Lizenzabruf und Rückgabecode
-		if($dc->activeRecord->dosb_pdf_tstamp)
-		{
-			$antwort = 'Letzter Abruf: '.date('d.m.Y H:i:s', $dc->activeRecord->dosb_pdf_tstamp).' ('.$dc->activeRecord->dosb_pdf_code.' '.$dc->activeRecord->dosb_pdf_antwort.')';
-		}
-		else $antwort = '';
-
-		if($dc->activeRecord->license_number_dosb)
-		{
-		$string = '
-<div class="w50 widget" style="height:45px;">
-	<a href="'.$link.'" class="dosb_button">'.$GLOBALS['TL_LANG']['tl_trainerlizenzen']['button_pdf'][0].'</a>
-	<p class="tl_help tl_tip" title="" style="margin-top:3px;">'.$antwort.'</p>
-</div>'; 
-			return $string;
-		}
-		else return '';
-			
-	}
-
+	/**
+	 * Link zum PDF im Karten-Format anzeigen
+	 * @param DataContainer $dc
+	 *
+	 * @return string HTML-Code
+	 */
 	public function getLizenzPDFCardView(DataContainer $dc)
 	{
+		// Links zum PDF generieren
+		$pdf_server = TL_ROOT.'/files/trainerlizenzen/'.$dc->activeRecord->license_number_dosb.'-card.pdf';
+		$pdf_download = 'files/trainerlizenzen/'.$dc->activeRecord->license_number_dosb.'-card.pdf';
+
 		// Lizenzstatus
-		if($dc->activeRecord->license_number_dosb && file_exists(TL_ROOT.'/files/trainerlizenzen/'.$dc->activeRecord->license_number_dosb.'-card.pdf'))
+		if($dc->activeRecord->license_number_dosb && file_exists($pdf_server))
 		{
-			$status = '<a href="files/trainerlizenzen/'.$dc->activeRecord->license_number_dosb.'-card.pdf" target="_blank" title="Zeigt die auf dem DSB-Server gespeicherte Lizenzurkunde im Format Card an." class="dosb_button_mini">PDF Karte anzeigen</a>';
+			$pdf_datum = date('d.m.Y H:i:s', filemtime($pdf_server));
+			$status = '<a href="'.$pdf_download.'" target="_blank" title="Zeigt die auf dem DSB-Server gespeicherte Lizenzurkunde im Format Card an." class="dosb_button_mini">PDF Karte anzeigen</a> PDF-Datum: '.$pdf_datum;
 			//$email = '&nbsp;<a href="" title="Verschickt die Lizenzurkunde mit der Standard-Mailvorlage an den Trainer, den Landesverband und den DSB" class="dosb_button_mini">PDF verschicken</a>';
 			$email = '';
 		}
@@ -1118,6 +1106,52 @@ class tl_trainerlizenzen extends \Backend
 		else return '';
 	}
 
+	/**
+	 * Button zum PDF-Abruf im DIN-A4-Format anzeigen
+	 * @param DataContainer $dc
+	 *
+	 * @return string HTML-Code
+	 */
+	public function getLizenzPDF(DataContainer $dc)
+	{
+
+		// Zurücklink generieren, ab C4 ist das ein symbolischer Link zu "contao"
+		if (version_compare(VERSION, '4.0', '>='))
+		{
+			$link = \System::getContainer()->get('router')->generate('contao_backend');
+		}
+		else
+		{
+			$link = 'contao/main.php';
+		}
+		$link .= '?do=trainerlizenzen&amp;key=getLizenzPDF&amp;id=' . $dc->activeRecord->id . '&amp;rt=' . REQUEST_TOKEN;
+		
+		// Letzter Lizenzabruf und Rückgabecode
+		if($dc->activeRecord->dosb_pdf_tstamp)
+		{
+			$antwort = 'Letzter Abruf: '.date('d.m.Y H:i:s', $dc->activeRecord->dosb_pdf_tstamp).' ('.$dc->activeRecord->dosb_pdf_code.' '.$dc->activeRecord->dosb_pdf_antwort.')';
+		}
+		else $antwort = '';
+
+		if($dc->activeRecord->license_number_dosb)
+		{
+		$string = '
+<div class="w50 widget" style="height:45px;">
+	<a href="'.$link.'" class="dosb_button">'.$GLOBALS['TL_LANG']['tl_trainerlizenzen']['button_pdf'][0].'</a>
+	<p class="tl_help tl_tip" title="" style="margin-top:3px;">'.$antwort.'</p>
+</div>'; 
+			return $string;
+		}
+		else return '';
+			
+	}
+
+	/**
+	 * Button zum PDF-Abruf im Karten-Format anzeigen
+	 * @param DataContainer $dc
+	 *
+	 * @return string HTML-Code
+	 */
 	public function getLizenzPDFCard(DataContainer $dc)
 	{
 
@@ -1151,7 +1185,6 @@ class tl_trainerlizenzen extends \Backend
 		else return '';
 			
 	}
-
 
 	/**
 	 * Setzt das aktuelle Datum beim Änderungsdatum

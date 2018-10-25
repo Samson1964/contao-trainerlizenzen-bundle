@@ -1,5 +1,8 @@
 # Trainerlizenzen Changelog
 
+- Fix: Markieren-Checkbox Standardeinstellung von true auf false geändert
+- Fix: Zurücklink für PDF-Card-Abruf war falsch. Richtig ist main.php statt contao/main.php
+
 ## Version 1.4.0 (2018-06-01)
 
 - Add: Bundesverband im Referenten-Formular (für besondere Rechte z.B. bei E-Mails)

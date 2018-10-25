@@ -279,9 +279,9 @@ class DOSBLizenzen extends \Backend
 		}
 		else
 		{
-			$backlink = 'contao/main.php';
+			$backlink = 'main.php';
 		}
-		$backlink = '?do=trainerlizenzen&act=edit&id='.$id.'&rt='.REQUEST_TOKEN;
+		$backlink .= '?do=trainerlizenzen&act=edit&id='.$id.'&rt='.REQUEST_TOKEN;
 		header('Location:'.$backlink);
 
 	}
@@ -374,7 +374,7 @@ class DOSBLizenzen extends \Backend
 		}
 		else
 		{
-			$backlink = 'contao/main.php';
+			$backlink = 'main.php';
 		}
 		$backlink .= '?do=trainerlizenzen&act=edit&id='.$id.'&rt='.REQUEST_TOKEN;
 		header('Location:'.$backlink);
