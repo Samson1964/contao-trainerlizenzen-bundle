@@ -1,5 +1,7 @@
 # Trainerlizenzen Changelog
 
+## Version 1.4.1 (2018-10-25)
+
 - Fix: Markieren-Checkbox Standardeinstellung von true auf false geändert
 - Fix: Zurücklink für PDF-Card-Abruf war falsch. Richtig ist main.php statt contao/main.php
 - Fix: Zurücklink für Lizenz-Abruf war falsch. Richtig ist main.php statt contao/main.php
