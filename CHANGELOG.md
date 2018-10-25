@@ -2,6 +2,9 @@
 
 - Fix: Markieren-Checkbox Standardeinstellung von true auf false geändert
 - Fix: Zurücklink für PDF-Card-Abruf war falsch. Richtig ist main.php statt contao/main.php
+- Fix: Zurücklink für Lizenz-Abruf war falsch. Richtig ist main.php statt contao/main.php
+- Fix: Datum letzter Abruf PDF-Card wurde mit 1.1.1970 angezeigt
+- Add: Anzeige des Datums der heruntergeladenen PDF-Dateien
 
 ## Version 1.4.0 (2018-06-01)
 

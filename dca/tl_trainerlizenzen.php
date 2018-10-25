@@ -1167,7 +1167,7 @@ class tl_trainerlizenzen extends \Backend
 		$link .= '?do=trainerlizenzen&amp;key=getLizenzPDFCard&amp;id=' . $dc->activeRecord->id . '&amp;rt=' . REQUEST_TOKEN;
 
 		// Letzter Lizenzabruf und Rückgabecode
-		if($dc->activeRecord->dosb_pdf_tstamp)
+		if($dc->activeRecord->dosb_pdfcard_tstamp)
 		{
 			$antwort = 'Letzter Abruf: '.date('d.m.Y H:i:s', $dc->activeRecord->dosb_pdfcard_tstamp).' ('.$dc->activeRecord->dosb_pdfcard_code.' '.$dc->activeRecord->dosb_pdfcard_antwort.')';
 		}

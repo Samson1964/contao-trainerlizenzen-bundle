@@ -187,7 +187,7 @@ class DOSBLizenzen extends \Backend
 		}
 		else
 		{
-			$backlink = 'contao/main.php';
+			$backlink = 'main.php';
 		}
 		$backlink .= '?do=trainerlizenzen&act=edit&id='.$id.'&rt='.REQUEST_TOKEN;
 		header('Location:'.$backlink);
@@ -392,11 +392,9 @@ class DOSBLizenzen extends \Backend
 		if($start)
 		{
 			//$objTemplate = new \BackendTemplate('be_rebuild_index');
-            //
 			//// Datensätze einlesen, bei der die Lizenz noch aktiv ist (größer/gleich aktuelles Datum)
 			//$result = \Database::getInstance()->prepare("SELECT * FROM tl_trainerlizenzen WHERE gueltigkeit >= ? AND published = ? ORDER BY id")
 			//							      ->execute(date('Ymd'), 1);
-            //
 			//// Auswerten
 			//if($result->numRows)
 			//{
@@ -405,7 +403,6 @@ class DOSBLizenzen extends \Backend
 			//		$strBuffer .= '<span id="trainer_'.$result->id.'" class="wait">ID '.$result->id.' '.$result->vorname.' '.$result->name.' - Lizenz gültig bis '.\Samson\Helper::getDate($result->gueltigkeit).'</span><br>';
 			//	}
 			//}
-            //
 			//$objTemplate->content = $strBuffer;
 			//$objTemplate->note = $GLOBALS['TL_LANG']['tl_maintenance']['indexNote'];
 			//$objTemplate->loading = 'Bitte warte, während die Daten zum DOSB übertragen werden.';
