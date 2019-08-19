@@ -11,27 +11,16 @@
  * @copyright Frank Hoppe 2014
  */
 
-define(TRAINERLIZENZEN_ABSENDER, $GLOBALS['TL_CONFIG']['trainerlizenzen_absender']);
-define(TRAINERLIZENZEN_PFAD, TL_ROOT . '/files/trainerlizenzen');
+define('TRAINERLIZENZEN_ABSENDER', $GLOBALS['TL_CONFIG']['trainerlizenzen_absender']);
+define('TRAINERLIZENZEN_PFAD', TL_ROOT . '/files/trainerlizenzen');
 
 // Zugang LiMS
-define(LIMS_HOST, $GLOBALS['TL_CONFIG']['lims_host']);
-define(LIMS_USERNAME, $GLOBALS['TL_CONFIG']['lims_username']);
-define(LIMS_PASSWORD, $GLOBALS['TL_CONFIG']['lims_password']);
-define(LIMS_LINK, $GLOBALS['TL_CONFIG']['lims_link']);
+define('LIMS_HOST', $GLOBALS['TL_CONFIG']['lims_host']);
+define('LIMS_USERNAME', $GLOBALS['TL_CONFIG']['lims_username']);
+define('LIMS_PASSWORD', $GLOBALS['TL_CONFIG']['lims_password']);
+define('LIMS_LINK', $GLOBALS['TL_CONFIG']['lims_link']);
 
-/**
- * Backend-Bereich DSB anlegen, wenn noch nicht vorhanden
- */
-if(!$GLOBALS['BE_MOD']['dsb']) 
-{
-	$dsb = array(
-		'dsb' => array()
-	);
-	array_insert($GLOBALS['BE_MOD'], 0, $dsb);
-}
-
-$GLOBALS['BE_MOD']['dsb']['trainerlizenzen'] = array
+$GLOBALS['BE_MOD']['content']['trainerlizenzen'] = array
 (
 	'tables'            => array('tl_trainerlizenzen', 'tl_trainerlizenzen_referenten', 'tl_trainerlizenzen_mails'),
 	'icon'              => 'system/modules/trainerlizenzen/assets/images/icon.png',
@@ -51,14 +40,4 @@ $GLOBALS['TL_HOOKS']['simpleAjax'][] = array('ajaxRequest', 'compile');
 /**
  * Frontend-Module
  */
-$GLOBALS['FE_MOD']['dsb']['trainerlizenzen'] = 'Samson\Trainerlizenzen\Trainerliste';
-
-// Konfiguration für ProSearch
-$GLOBALS['PS_SEARCHABLE_MODULES']['trainerlizenzen'] = array(
-	'icon'              => 'system/modules/trainerlizenzen/assets/images/icon.png',
-	'title'             => array('name'),
-	'searchIn'          => array('vorname','name', 'email', 'lizenznummer'),
-	'tables'            => array('tl_trainerlizenzen'),
-	'shortcut'          => 'tlizenzen'
-);
-
+$GLOBALS['FE_MOD']['application']['trainerlizenzen'] = 'Samson\Trainerlizenzen\Trainerliste';

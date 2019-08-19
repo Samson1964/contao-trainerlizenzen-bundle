@@ -1,5 +1,9 @@
 # Trainerlizenzen Changelog
 
+## Version 2.0.0 (2019-08-19)
+
+Initialversion als Bundle für Contao 4
+
 ## Version 1.4.1 (2018-10-25)
 
 - Fix: Markieren-Checkbox Standardeinstellung von true auf false geändert
