@@ -129,13 +129,13 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen_items'] = array
 		'verification' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen_items']['verification'],
-			'input_field_callback'    => array('tl_trainerlizenzen', 'getVerification'),
+			'input_field_callback'    => array('tl_trainerlizenzen_items', 'getVerification'),
 		),
 		// DOSB-Lizenzstring, z.B. DSchB-T-C-0002146
 		'license_number_dosb' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen_items']['license_number_dosb'],
-			'input_field_callback'    => array('tl_trainerlizenzen', 'getLizenznummer'),
+			'input_field_callback'    => array('tl_trainerlizenzen_items', 'getLizenznummer'),
 			'exclude'                 => true,
 			'search'                  => true,
 			'sorting'                 => true,
@@ -175,13 +175,13 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen_items'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen_items']['button_license'],
 			'exclude'                 => true,
-			'input_field_callback'    => array('tl_trainerlizenzen', 'getLizenzbutton')
+			'input_field_callback'    => array('tl_trainerlizenzen_items', 'getLizenzbutton')
 		), 
 		// PDF-Link Format DIN A4
 		'view_pdf' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen_items']['view_pdf'],
-			'input_field_callback'    => array('tl_trainerlizenzen', 'getLizenzPDFView'),
+			'input_field_callback'    => array('tl_trainerlizenzen_items', 'getLizenzPDFView'),
 			'exclude'                 => true,
 		),
 		// Button zur PDF-Anforderung DIN A4
@@ -189,7 +189,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen_items'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen_items']['button_pdf'],
 			'exclude'                 => true,
-			'input_field_callback'    => array('tl_trainerlizenzen', 'getLizenzPDF')
+			'input_field_callback'    => array('tl_trainerlizenzen_items', 'getLizenzPDF')
 		), 
 		// Unixzeit des letzten PDF-Abrufs beim DOSB
 		'dosb_pdf_tstamp' => array
@@ -214,7 +214,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen_items'] = array
 		'view_pdfcard' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen_items']['view_pdfcard'],
-			'input_field_callback'    => array('tl_trainerlizenzen', 'getLizenzPDFCardView'),
+			'input_field_callback'    => array('tl_trainerlizenzen_items', 'getLizenzPDFCardView'),
 			'exclude'                 => true,
 		),
 		// Button zur PDF-Anforderung Format Card
@@ -222,7 +222,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen_items'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen_items']['button_pdfcard'],
 			'exclude'                 => true,
-			'input_field_callback'    => array('tl_trainerlizenzen', 'getLizenzPDFCard')
+			'input_field_callback'    => array('tl_trainerlizenzen_items', 'getLizenzPDFCard')
 		), 
 		// Unixzeit des letzten PDF-Abrufs beim DOSB
 		'dosb_pdfcard_tstamp' => array
@@ -629,7 +629,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen_items'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen_items']['setHeute'],
 			'exclude'                 => true,
-			'input_field_callback'    => array('tl_trainerlizenzen', 'setHeute')
+			'input_field_callback'    => array('tl_trainerlizenzen_items', 'setHeute')
 		), 
 		'addEnclosure' => array
 		(
@@ -647,7 +647,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen_items'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen_items']['enclosure'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
-			//'load_callback'           => array(array('tl_trainerlizenzen', 'viewFiles')),
+			//'load_callback'           => array(array('tl_trainerlizenzen_items', 'viewFiles')),
 			'eval'                    => array
 			(
 				'multiple'            => true,
@@ -663,7 +663,7 @@ $GLOBALS['TL_DCA']['tl_trainerlizenzen_items'] = array
 		'enclosureInfo' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_trainerlizenzen_items']['enclosureInfo'],
-			'input_field_callback'    => array('tl_trainerlizenzen', 'viewEnclosureInfo'),
+			'input_field_callback'    => array('tl_trainerlizenzen_items', 'viewEnclosureInfo'),
 		),
 		'bemerkung' => array
 		(
@@ -760,7 +760,7 @@ class tl_trainerlizenzen_items extends \Backend
 			$this->redirect($backlink.'?act=error');
 		}
 		
-		$this->createInitialVersion('tl_trainerlizenzen', $intId);
+		$this->createInitialVersion('tl_trainerlizenzen_items', $intId);
 		
 		// Trigger the save_callback
 		if (is_array($GLOBALS['TL_DCA']['tl_trainerlizenzen_items']['fields']['published']['save_callback']))
@@ -775,7 +775,7 @@ class tl_trainerlizenzen_items extends \Backend
 		// Update the database
 		$this->Database->prepare("UPDATE tl_trainerlizenzen SET tstamp=". time() .", published='" . ($blnPublished ? '' : '1') . "' WHERE id=?")
 					   ->execute($intId);
-		$this->createNewVersion('tl_trainerlizenzen', $intId);
+		$this->createNewVersion('tl_trainerlizenzen_items', $intId);
 	}
 
 	/**
@@ -1036,6 +1036,20 @@ class tl_trainerlizenzen_items extends \Backend
 		
 		return $string;
 	}
+
+	/**
+	 * List records
+	 *
+	 * @param array $arrRow
+	 *
+	 * @return string
+	 */
+	public function listLizenzen($arrRow)
+	{
+		return '
+<div class="cte_type ' . (($arrRow['sent_state'] && $arrRow['sent_date']) ? 'published' : 'unpublished') . '"><strong>' . $arrRow['subject'] . '</strong> - ' . (($arrRow['sent_state'] && $arrRow['sent_date']) ? 'Versendet am '.Date::parse(Config::get('datimFormat'), $arrRow['sent_date']) : 'Nicht versendet'). '</div>'; 
+
+	}
 	
 	public function getVerification(DataContainer $dc)
 	{
@@ -1044,7 +1058,7 @@ class tl_trainerlizenzen_items extends \Backend
 		// GÜLTIGKEIT DER LIZENZ
 		// ----------------------------------------------------------------
 		// Letztes Verlängerungsdatum ermitteln
-		$verlaengerung = \Samson\Trainerlizenzen\Helper::getVerlaengerung($dc->activeRecord->erwerb, $dc->activeRecord->verlaengerungen);
+		$verlaengerung = \Schachbulle\ContaoTrainerlizenzenBundle\Classes\Helper::getVerlaengerung($dc->activeRecord->erwerb, $dc->activeRecord->verlaengerungen);
 
 		// Zulässiges Gültigkeitsdatum feststellen
 		switch(substr($dc->activeRecord->lizenz,0,1))

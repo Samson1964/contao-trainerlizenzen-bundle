@@ -11,32 +11,20 @@
  */
 
 // Zusätzliche Funktionen
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['referenten'][0] = 'Referenten';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['referenten'][1] = 'Ausbildungsreferenten der Landesverbände';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['import'][0] = 'CSV-Import';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['import'][1] = 'CSV-Import';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['export'][0] = 'CSV-Export';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['export'][1] = 'CSV-Export';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['exportXLS'][0] = 'Excel-Export';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['exportXLS'][1] = 'Excel-Export';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['exportDOSB'][0] = 'DOSB-Export';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['exportDOSB'][1] = 'Aktive Lizenzen zum DOSB exportieren';
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['referenten'] = array('Referenten', 'Ausbildungsreferenten der Landesverbände');
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['import'] = array('CSV-Import', 'CSV-Import');
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['export'] = array('CSV-Export', 'CSV-Export der Lizenzen');
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['exportXLS'] = array('Excel-Export', 'Excel-Export der Lizenzen');
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['exportDOSB'] = array('DOSB-Export', 'Aktive Lizenzen zum DOSB exportieren');
 
 // Standardfunktionen
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['new'][0] = 'Neue Lizenz';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['new'][1] = 'Neue Lizenz';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['edit'][0] = 'Lizenz %s bearbeiten';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['edit'][1] = 'Lizenz %s bearbeiten';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['emailbox'][0] = 'E-Mails für Lizenz %s verwalten';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['emailbox'][1] = 'E-Mails für Lizenz %s verwalten';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['copy'][0] = 'Lizenz %s kopieren';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['copy'][1] = 'Lizenz %s kopieren';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['delete'][0] = 'Lizenz %s löschen';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['delete'][1] = 'Lizenz %s löschen';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['toggle'][0] = 'Lizenz %s aktivieren/deaktivieren';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['toggle'][1] = 'Lizenz %s aktivieren/deaktivieren';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['show'][0] = 'Details zur Lizenz %s anzeigen';
-$GLOBALS['TL_LANG']['tl_trainerlizenzen']['show'][1] = 'Details zur Lizenz %s anzeigen';
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['new'] = array('Neue Person', 'Neue Person anlegen');
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['edit'] = array('Person %s bearbeiten', 'Person %s bearbeiten');
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['emailbox'] = array('E-Mails für Person %s verwalten', 'E-Mails für Person %s verwalten');
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['copy'] = array('Person %s kopieren', 'Person %s kopieren');
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['delete'] = array('Person %s löschen', 'Person %s löschen');
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['toggle'] = array('Person %s aktivieren/deaktivieren', 'Person %s aktivieren/deaktivieren');
+$GLOBALS['TL_LANG']['tl_trainerlizenzen']['show'] = array('Details zur Person %s anzeigen', 'Details zur Person %s anzeigen');
 
 $GLOBALS['TL_LANG']['tl_trainerlizenzen']['tstamp'][0] = 'Zeitstempel';
 $GLOBALS['TL_LANG']['tl_trainerlizenzen']['tstamp'][1] = 'Zeitstempel des Datensatzes';

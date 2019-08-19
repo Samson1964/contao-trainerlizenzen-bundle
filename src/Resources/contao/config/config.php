@@ -22,8 +22,8 @@ define('LIMS_LINK', $GLOBALS['TL_CONFIG']['lims_link']);
 
 $GLOBALS['BE_MOD']['content']['trainerlizenzen'] = array
 (
-	'tables'            => array('tl_trainerlizenzen', 'tl_trainerlizenzen_referenten', 'tl_trainerlizenzen_mails'),
-	'icon'              => 'system/modules/trainerlizenzen/assets/images/icon.png',
+	'tables'            => array('tl_trainerlizenzen', 'tl_trainerlizenzen_items', 'tl_trainerlizenzen_referenten', 'tl_trainerlizenzen_mails'),
+	'icon'              => 'bundles/contaotrainerlizenzen/images/icon.png',
 	'export'            => array('trainerlizenzExport', 'exportTrainer'),
 	'exportXLS'         => array('trainerlizenzExport', 'exportXLSTrainer'),
 	'import'            => array('Samson\Trainerlizenzen\trainerlizenzImport', 'importTrainer'), 
